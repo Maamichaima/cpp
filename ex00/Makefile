@@ -7,13 +7,12 @@ CXXFLAGS = -Wall -Wextra -Werror #-std=c++98
 OBJS = ${SRC:.c=.o}
 
 NAME = megaphone
-
 all : ${NAME}
 
 ${NAME} : ${OBJS}
-	g++ -o ${NAME} ${OBJS}
+	c++ -o ${NAME} ${OBJS}
 clean :
-# ${RM} ${OBJS}
+	rm -rf megaphone.o
 fclean : clean
 	${RM} ${NAME}
 re: fclean all

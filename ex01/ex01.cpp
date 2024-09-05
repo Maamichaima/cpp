@@ -1,4 +1,5 @@
 #include "Contact.hpp"
+#include "PhoneBook.hpp"
 
 int main ()
 {
@@ -8,23 +9,47 @@ int main ()
 	std::string n_n;
 	std::string ligne;
 	std::string n;
+	std::string index;
+	int i = 0;
     
-	std::getline(std::cin, ligne);
-	if(ligne == "ADD")
+	while(1)
 	{
-		std::cout << "give me first name :";
-		std::getline(std::cin, f_n);
-		std::cout << "give me last name :";
-		std::getline(std::cin, l_n);
-		std::cout << "give me nickname :";
-		std::getline(std::cin, n_n);
-		std::cout << "give me number :";
-		std::getline(std::cin, n);
-		p.Add_New_Contact(0, n, f_n, l_n, "hh");
-		std:: cout << p.getContact(0).getFirstName() << std:: endl;
-		std:: cout << p.getContact(0).getlastName() << std:: endl;
-		std:: cout << p.getContact(0).getlastName() << std:: endl;
-		std:: cout << p.getContact(0).getNumber() << std:: endl;
+		std::getline(std::cin, ligne);
+		if(ligne == "ADD")
+		{
+			std::cout << "give me first name :";
+			std::getline(std::cin, f_n);
+			std::cout << "give me last name :";
+			std::getline(std::cin, l_n);
+			std::cout << "give me nickname :";
+			std::getline(std::cin, n_n);
+			std::cout << "give me number :";
+			std::getline(std::cin, n);
+			p.Add_New_Contact(i, n, f_n, l_n, n_n);
+			i++;
+		}
+		if(ligne == "SEARCH")
+		{
+			i = 0;
+			const int width = 10;
+			for (int i = 0; i < 7; ++i)
+			{
+				if (p.getContact(i).getFirstName().length() > 10)
+				{
+					std::cout << "hani\n";
+				}
+				std::cout << std::setw(width) << p.getContact(i).getFirstName() << "|";
+				std::cout << std::setw(width) << p.getContact(i).getlastName() << "|";
+				std::cout << std::setw(width) << p.getContact(i).getNickName() << "|";
+				std::cout << std::setw(width) << p.getContact(i).getNumber() << std::endl;
+			}
+			std:: cout << "give me index";
+			std::getline(std::cin, index);
+			int idx = std::stoi(index);
+			std:: cout << "name is ";
+			std:: cout << p.getContact(idx).getFirstName();
+		}
+		if(ligne == "EXIT")
+			return 0;
 	}
-
 }
