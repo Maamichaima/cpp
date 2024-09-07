@@ -14,6 +14,7 @@ int main ()
     
 	while(1)
 	{
+		std::cout << "\"ADD\" OR \"SEARCH\" OR \"EXIT\"\n";
 		std::getline(std::cin, ligne);
 		if(ligne == "ADD")
 		{
@@ -23,32 +24,13 @@ int main ()
 			std::getline(std::cin, l_n);
 			std::cout << "give me nickname :";
 			std::getline(std::cin, n_n);
-			std::cout << "give me number :";
+			std::cout << "give me number :";//check number 
 			std::getline(std::cin, n);
 			p.Add_New_Contact(i, n, f_n, l_n, n_n);
 			i++;
 		}
 		if(ligne == "SEARCH")
-		{
-			i = 0;
-			const int width = 10;
-			for (int i = 0; i < 7; ++i)
-			{
-				if (p.getContact(i).getFirstName().length() > 10)
-				{
-					std::cout << "hani\n";
-				}
-				std::cout << std::setw(width) << p.getContact(i).getFirstName() << "|";
-				std::cout << std::setw(width) << p.getContact(i).getlastName() << "|";
-				std::cout << std::setw(width) << p.getContact(i).getNickName() << "|";
-				std::cout << std::setw(width) << p.getContact(i).getNumber() << std::endl;
-			}
-			std:: cout << "give me index";
-			std::getline(std::cin, index);
-			int idx = std::stoi(index);
-			std:: cout << "name is ";
-			std:: cout << p.getContact(idx).getFirstName();
-		}
+			p.search();
 		if(ligne == "EXIT")
 			return 0;
 	}

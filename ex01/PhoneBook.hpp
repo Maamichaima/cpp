@@ -8,6 +8,6 @@ class PhoneBook{
     public:
         Contact& getContact(int i);
         void Add_New_Contact(int i, std:: string number, std::string first_name, std::string last_name, std::string nickname);
-		Contact search(std::string str);
+		void search();
 };
 #endif
