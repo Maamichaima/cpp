@@ -9,7 +9,7 @@ NAME = PhoneBook
 all : ${NAME}
 
 ${NAME} : ${SRC}
-	c++ -o ${NAME} ${SRC}
+	c++ -o ${NAME} ${SRC} ${CXXFLAGS}
 clean :
 	rm -rf 
 fclean : clean

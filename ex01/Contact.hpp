@@ -5,6 +5,9 @@
 #include <string>
 #include <iomanip> 
 #include <cstring>
+#include <cstdlib>
+#include <cctype>
+
 
 class Contact{
     private:
@@ -22,5 +25,6 @@ class Contact{
         void setLastName(std:: string str);
         void setNickName(std:: string str);
         void setNumber(std:: string str);
+
 };
 #endif

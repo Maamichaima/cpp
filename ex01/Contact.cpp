@@ -16,7 +16,6 @@ std:: string Contact:: getNumber()
 {
 	return number;
 }
-
 void Contact:: setFirstName(std:: string str)
 {
 	first_name = str;
