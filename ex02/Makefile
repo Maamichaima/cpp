@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++98 #-Wall -Wextra -Werror
 
 OBJS = ${SRC:.c=.o}
 
-NAME = PhoneBook
+NAME = Account
 
 all : ${NAME}
 

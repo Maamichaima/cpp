@@ -10,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <cstdio>
 #include "Account.hpp"
 
 
@@ -37,28 +38,37 @@ int		main( void ) {
 	ints_t::iterator	wit_begin	= withdrawals.begin();
 	ints_t::iterator	wit_end		= withdrawals.end();
 
+	std:: cout<< std:: endl;//dyali
 	Account::displayAccountsInfos();
-	// std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	std:: cout<< std:: endl;//dyali
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	std:: cout<< std:: endl;//dyali
 
-	// for ( acc_int_t it( acc_begin, dep_begin );
-	// 	  it.first != acc_end && it.second != dep_end;
-	// 	  ++(it.first), ++(it.second) ) {
+	for ( acc_int_t it( acc_begin, dep_begin );
+		  it.first != acc_end && it.second != dep_end;
+		  ++(it.first), ++(it.second) ) {
 
-	// 	(*(it.first)).makeDeposit( *(it.second) );
-	// }
+		(*(it.first)).makeDeposit( *(it.second) );
+	}
+	std:: cout<< std:: endl;//dyali
 
-	// Account::displayAccountsInfos();
-	// std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	Account::displayAccountsInfos();
+	std:: cout<< std:: endl;//dyali
 
-	// for ( acc_int_t it( acc_begin, wit_begin );
-	// 	  it.first != acc_end && it.second != wit_end;
-	// 	  ++(it.first), ++(it.second) ) {
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+	std:: cout<< std:: endl;//dyali
 
-	// 	(*(it.first)).makeWithdrawal( *(it.second) );
-	// }
+	for ( acc_int_t it( acc_begin, wit_begin );
+		  it.first != acc_end && it.second != wit_end;
+		  ++(it.first), ++(it.second) ) {
 
-	// Account::displayAccountsInfos();
-	// std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
+		(*(it.first)).makeWithdrawal( *(it.second) );
+	}
+	std:: cout<< std:: endl;//dyali
+
+	Account::displayAccountsInfos();
+	std:: cout<< std:: endl;//dyali
+	std::for_each( acc_begin, acc_end, std::mem_fun_ref( &Account::displayStatus ) );
 
 	return 0;
 }
