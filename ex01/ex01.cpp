@@ -10,8 +10,8 @@ int main ()
 	{
 		std::cout << "\"ADD\" OR \"SEARCH\" OR \"EXIT\"\n";
 		std::getline(std::cin, ligne);
-		if(std::cin.eof())
-			return 1;
+		// if(std::cin.eof())
+		// 	return 1;
 		if(ligne == "ADD")
 			p.Add_New_Contact();
 		if(ligne == "SEARCH")

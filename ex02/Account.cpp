@@ -67,15 +67,15 @@ void	Account:: makeDeposit( int deposit )
 	std::time_t now = std::time(0);
     std::tm* now_tm = std::localtime(&now);
 
-	this->_nbDeposits ++;
+	this->_nbDeposits ++;// 3laach this ??
 	this->_totalNbDeposits++;
 	this->_amount += deposit;
 	this->_totalAmount += deposit;
 
 	std::cout << "[" << now_tm->tm_year + 1900 << "0" << now_tm->tm_mon + 1 << "0" << now_tm->tm_mday 
 	<< "_" << now_tm->tm_hour << now_tm->tm_min << now_tm->tm_sec << "]"
-	<< " index:" << _accountIndex << ";p_amount:" << _amount << ";deposit:" << deposit
-	<< ";amount:" << _amount + deposit << ";nb_deposits:" << _nbDeposits << std::endl;
+	<< " index:" << _accountIndex << ";p_amount:" << _amount - deposit << ";deposit:" << deposit
+	<< ";amount:" << _amount << ";nb_deposits:" << _nbDeposits << std::endl;
 }
 
 bool	Account:: makeWithdrawal( int withdrawal )
@@ -98,4 +98,15 @@ bool	Account:: makeWithdrawal( int withdrawal )
 		std::cout << ";withdrawal:"<< withdrawal << ";amount:" << _amount << ";nb_withdrawals:" << _nbWithdrawals << std:: endl;
 	}
 	return 0;
+}
+
+Account:: ~Account( void )
+{
+	std::time_t now = std::time(0);
+    std::tm* now_tm = std::localtime(&now);
+
+
+	std::cout << "[" << now_tm->tm_year + 1900 << now_tm->tm_mon + 1 << "0" << now_tm->tm_mday 
+	<< "_" << now_tm->tm_hour << now_tm->tm_min << now_tm->tm_sec << "]"
+	<< " index:" << _accountIndex << ";amount:" << _amount << ";closed" << std:: endl;
 }
