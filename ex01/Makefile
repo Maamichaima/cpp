@@ -1,17 +1,17 @@
-SRC = Contact.cpp PhoneBook.cpp ex01.cpp
+SRC = Contact.cpp PhoneBook.cpp main.cpp
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-OBJS = ${SRC:.c=.o}
+OBJS = ${SRC:.cpp=.o}
 
 NAME = PhoneBook
 
 all : ${NAME}
 
-${NAME} : ${SRC}
-	c++ -o ${NAME} ${SRC} ${CXXFLAGS}
+${NAME} : ${OBJS}
+	c++ -o ${NAME} ${OBJS} ${CXXFLAGS}
 clean :
-	rm -rf 
+	rm -rf ${OBJS}
 fclean : clean
 	${RM} ${NAME}
 re: fclean all

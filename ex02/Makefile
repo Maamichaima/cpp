@@ -1,6 +1,6 @@
 SRC = Account.cpp tests.cpp 
 
-CXXFLAGS = -std=c++98 #-Wall -Wextra -Werror 
+CXXFLAGS =  -Wall -Wextra -Werror -std=c++98
 
 OBJS = ${SRC:.c=.o}
 
@@ -10,7 +10,7 @@ all : ${NAME}
 
 ${NAME} : ${SRC}
 	c++ -o ${NAME} ${SRC} ${CXXFLAGS}
-clean :
+clean 
 	rm -rf 
 fclean : clean
 	${RM} ${NAME}
