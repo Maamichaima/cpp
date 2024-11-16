@@ -15,18 +15,18 @@ class Contact{
         std:: string last_name;
         std:: string nickname;
         std:: string number;
-        std:: string darkest_secre;
+        std:: string darkest_secret;
     public:
         std:: string getFirstName();
         std:: string getlastName();
         std:: string getNickName();
         std:: string getNumber();
-        std:: string getDarkset_secre();
+        std:: string getDarkset_secret();
     
         void setFirstName(std:: string str);
         void setLastName(std:: string str);
         void setNickName(std:: string str);
         void setNumber(std:: string str);
-        void setDarkset_secre(std:: string str);
+        void setDarkset_secret(std:: string str);
 };
 #endif

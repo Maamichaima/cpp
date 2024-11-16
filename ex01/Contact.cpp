@@ -20,9 +20,9 @@ std:: string Contact:: getNumber()
 	return number;
 }
 
-std:: string Contact:: getDarkset_secre()
+std:: string Contact:: getDarkset_secret()
 {
-	return darkest_secre;
+	return darkest_secret;
 }
 
 void Contact:: setFirstName(std:: string str)
@@ -45,7 +45,7 @@ void Contact:: setNumber(std:: string str)
 	number = str;
 }
 
-void Contact:: setDarkset_secre(std:: string str)
+void Contact:: setDarkset_secret(std:: string str)
 {
-	darkest_secre = str;
+	darkest_secret = str;
 }

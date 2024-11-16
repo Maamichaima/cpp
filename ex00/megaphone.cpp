@@ -13,10 +13,7 @@ int main(int c, char **v)
         j = 0;
         while(v[i][j])
         {
-            if(v[i][j] >= 'a' && v[i][j] <= 'z')
-                std::cout << (char)toupper(v[i][j]);
-            else
-                std::cout << v[i][j];
+            std::cout << (char)toupper(v[i][j]);
             j++;
         }
         i++;

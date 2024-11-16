@@ -30,7 +30,7 @@ void PhoneBook::Add_New_Contact()
 	tab[index].setLastName(att[1]);
 	tab[index].setNickName(att[2]);
 	tab[index].setNumber(att[3]);
-	tab[index].setDarkset_secre(att[4]);
+	tab[index].setDarkset_secret(att[4]);
 	index++;
 }
 
@@ -41,7 +41,7 @@ PhoneBook::PhoneBook()
 	m_error[1] = "last name";
 	m_error[2] = "nick name";
 	m_error[3] = "number";
-	m_error[4] = "darkest secre";
+	m_error[4] = "darkest secret";
 }
 
 int check_num(std::string index)
@@ -62,6 +62,7 @@ void PhoneBook:: showContact(int idx)
 		std:: cout << "last  name --- > " << getContact(idx).getlastName() << std:: endl;
 		std:: cout << "nick  name --- > " << getContact(idx).getNickName() << std:: endl;
 		std:: cout << "number     --- > " << getContact(idx).getNumber() << std:: endl;
+		std:: cout << "darkest secret- > " << getContact(idx).getDarkset_secret() << std:: endl;
 	}
 	else
 		std:: cout << "This index does not exist.\n";
