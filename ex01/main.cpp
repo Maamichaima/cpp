@@ -9,9 +9,9 @@ int main ()
 	while(1)
 	{
 		std::cout << "\"ADD\" OR \"SEARCH\" OR \"EXIT\"\n";
-		getline(std::cin, ligne);//9lbi 3la had lkhra dyal istream
-		// if(std::cin.eof())
-		// 	return 1;
+		getline(std::cin, ligne);
+		if(std::cin.eof())
+			return 1;
 		if(ligne == "ADD")
 			p.Add_New_Contact();
 		else if(ligne == "SEARCH")

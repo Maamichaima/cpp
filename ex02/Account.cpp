@@ -46,8 +46,7 @@ Account:: Account( int initial_deposit)
 	std::cout << " index:" << _accountIndex << ";amount:" << _amount << ";created\n";
 }
 void	Account:: displayAccountsInfos( void )
-{	int total;
-
+{
 	_displayTimestamp();
 	std::cout << " acounts:" << _nbAccounts << ";total:" << _totalAmount << ";deposits:" << _totalNbDeposits
 	<< ";withdrawals:" << _totalNbWithdrawals << std::endl;
@@ -62,7 +61,7 @@ void	Account:: displayStatus( void ) const
 
 void	Account:: makeDeposit( int deposit )
 {
-	_nbDeposits ++;// 3laach this ??
+	_nbDeposits ++;
 	_totalNbDeposits++;
 	_amount += deposit;
 	_totalAmount += deposit;

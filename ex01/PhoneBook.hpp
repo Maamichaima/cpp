@@ -8,11 +8,10 @@ class PhoneBook{
 		int index;
 		std:: string m_error[5];
     public:
-        Contact getContact(int i);//bedli hadi bdik l3adiya 
+        Contact getContact(int i);
         void Add_New_Contact();
 		void search();
 		void showContact(int index);
-		// bool check_num(const std::string& str);
 		PhoneBook();
 };
 #endif
