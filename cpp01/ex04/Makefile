@@ -1,0 +1,19 @@
+SRC = main.cpp 
+OBJ = ${SRC:.cpp=.o}
+
+NAME = Sed_is_for_losers
+
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXX = c++
+all : ${NAME}
+
+${NAME} : ${OBJ}
+	${CXX} -o ${NAME}  ${OBJ} ${CXXFLAGS}
+
+fclean : clean
+	rm -rf ${NAME}
+
+clean : 
+	rm -rf ${OBJ}
+
+re : fclean all
