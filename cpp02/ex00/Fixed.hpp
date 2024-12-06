@@ -9,9 +9,7 @@ class Fixed
         int fixed_point;
         static const int  fractional_bits;
     public:
-        // Fixed();
         Fixed();
-        // Fixed Fixed();
         Fixed(const Fixed& x);
         Fixed &operator=(const Fixed &other);
         ~Fixed();

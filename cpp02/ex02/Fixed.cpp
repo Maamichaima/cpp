@@ -46,7 +46,6 @@ Fixed::~Fixed()
 {
     // std::cout <<"Destructor called\n";
 }
-
 float Fixed::toFloat( void ) const
 {
     float tmp;
@@ -94,7 +93,7 @@ Fixed &Fixed::operator++()
     return (*this);
 }
 
-Fixed Fixed::operator++(int c)
+Fixed Fixed::operator++(int)
 {
     Fixed tmp(*this);
     this->fixed_point++;
@@ -105,7 +104,7 @@ Fixed &Fixed::operator--()
     this->fixed_point--;
     return (*this);
 }
-Fixed Fixed::operator--(int c)
+Fixed Fixed::operator--(int)
 {
     Fixed tmp(*this);
     this->fixed_point--;

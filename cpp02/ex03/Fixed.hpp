@@ -33,8 +33,8 @@ class Fixed
         int operator>=(const Fixed &o);
         int operator==(const Fixed &o);
         int operator!=(const Fixed &o);
-        // static  Fixed& max( Fixed& x,  Fixed& y);
-        static const Fixed& max(const Fixed& x, const Fixed& y);        static  Fixed& max( Fixed& x,  Fixed& y);
+        static const Fixed& max(const Fixed& x, const Fixed& y);
+        static  Fixed& max( Fixed& x,  Fixed& y);
         static  Fixed& min( Fixed& x,  Fixed& y);
         static const Fixed& min(const Fixed& x, const Fixed& y);
 };

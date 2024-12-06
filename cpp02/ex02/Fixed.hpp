@@ -25,9 +25,9 @@ class Fixed
         Fixed operator-(const Fixed &o);
         Fixed operator/(const Fixed &o);
         Fixed &operator++();
-        Fixed operator++(int c);
+        Fixed operator++(int);
         Fixed &operator--();
-        Fixed operator--(int c);
+        Fixed operator--(int);
         int operator<(const Fixed &o);
         int operator>(const Fixed &o);
         int operator<=(const Fixed &o);

@@ -10,7 +10,7 @@ Fixed::Fixed()
 Fixed::Fixed(const Fixed& x)
 {
     std::cout << "Copy constructor called\n";
-    fixed_point = x.getRawBits();
+    *this = x; 
 }
 Fixed::Fixed(const int x)
 {
@@ -42,7 +42,7 @@ void Fixed::setRawBits( int const raw )
 }
 Fixed::~Fixed()
 {
-    std::cout <<"Destructor called\n";
+    std::cout << "Destructor called\n";
 }
 
 float Fixed::toFloat( void ) const

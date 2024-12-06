@@ -94,7 +94,7 @@ Fixed Fixed::operator++()
     return (*this);
 }
 
-Fixed Fixed::operator++(int c)
+Fixed Fixed::operator++(int)
 {
     Fixed tmp(*this);
     this->fixed_point++;
@@ -105,7 +105,7 @@ Fixed Fixed::operator--()
     this->fixed_point--;
     return (*this);
 }
-Fixed Fixed::operator--(int c)
+Fixed Fixed::operator--(int)
 {
     Fixed tmp(*this);
     this->fixed_point--;
@@ -113,8 +113,6 @@ Fixed Fixed::operator--(int c)
 }
 const Fixed& Fixed::max(const Fixed& x, const Fixed& y) 
 {
-    std::cout << "jjj " << x.toFloat() << std::endl;
-    std::cout << "jjj " << y.toFloat() << std::endl;
     if(x.getRawBits() > y.getRawBits())
         return (x);
     else
