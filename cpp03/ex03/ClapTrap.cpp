@@ -3,17 +3,17 @@
 ClapTrap::ClapTrap()
 {
     std::cout << "ClapTrap:: Default constructor called 🤖\n";
+    Hit_points = 10;
     Energy_Points = 10;
-    Attack_Damage = 10;
-    Hit_points = 0;
+    Attack_Damage = 0;
 }
 ClapTrap::ClapTrap(std::string std)
 {
     std::cout << "ClapTrap:: constructor parameters 🤖\n";
     Name = std;
+    Hit_points = 10;
     Energy_Points = 10;
-    Attack_Damage = 10;
-    Hit_points = 0;
+    Attack_Damage = 0;
 }
 ClapTrap::ClapTrap(const ClapTrap& x)
 {

@@ -6,6 +6,10 @@ ScavTrap::ScavTrap()
 }
 ScavTrap::ScavTrap(std::string str):ClapTrap(str)
 {
+    // Name = str;//hyeed
+    Hit_points = 100;
+    Energy_Points = 50;
+    Attack_Damage = 20;
     std::cout << "ScavTrap:: constructor parameters\n";
 }
 ScavTrap::ScavTrap(const ScavTrap& x)

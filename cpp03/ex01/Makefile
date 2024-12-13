@@ -1,13 +1,13 @@
 SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJ = ${SRC:.cpp=.o}
-CXXFLAG = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror
 CXX = c++
 NAME = ex01
 
 all : ${NAME}
 
 ${NAME} : ${OBJ}
-	${CC} -o ${NAME} ${OBJ}  ${CXXFLAG}
+	${CXX} -o ${NAME} ${OBJ}  ${CXXFLAGS}
 
 clean :
 	rm -rf ${OBJ}

@@ -1,13 +1,13 @@
 SRC = main.cpp ClapTrap.cpp
 OBJ = ${SRC:.cpp=.o}
-CXXFLAG = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXX = c++
 NAME = ex00
 
 all : ${NAME}
 
 ${NAME} : ${OBJ}
-	${CXX} -o ${NAME} ${OBJ}  ${CXXFLAG}
+	${CXX} -o ${NAME} ${OBJ}  ${CXXFLAGS}
 
 clean :
 	rm -rf ${OBJ}

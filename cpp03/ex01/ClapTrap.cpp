@@ -2,19 +2,22 @@
 
 ClapTrap::ClapTrap()
 {
-    std::cout << "ClapTrap:: Default constructor called\n";
+    std::cout << "ClapTrap:: Default constructor called 🤖\n";
+    Hit_points = 10;
+    Energy_Points = 10;
+    Attack_Damage = 0;
 }
 ClapTrap::ClapTrap(std::string std)
 {
-    std::cout << "ClapTrap:: constructor parameters\n";
+    std::cout << "ClapTrap:: constructor parameters 🤖\n";
     Name = std;
-    Energy_Points = 100;
-    Attack_Damage = 50;
-    Hit_points = 20;
+    Hit_points = 10;
+    Energy_Points = 10;
+    Attack_Damage = 0;
 }
 ClapTrap::ClapTrap(const ClapTrap& x)
 {
-    std::cout << "ClapTrap:: copy constructor called\n";
+    std::cout << "ClapTrap:: copy constructor called 🤖\n";
     this->operator=(x);
 }
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
@@ -43,16 +46,16 @@ void ClapTrap::attack(const std::string& target)
     else
     {
         if (Hit_points < 1)
-            std::cout << "ClapTrap " << Name << " can't attack because it has no hit points!\n";
+            std::cout << "ClapTrap " << Name << " can't attack because it has no hit points! 🙂‍↕️\n";
         else if (Energy_Points < 1)
-            std::cout << "ClapTrap " << Name << " can't attack because it has no energy points!\n";
+            std::cout << "ClapTrap " << Name << " can't attack because it has no energy points! 🙂‍↕️\n";
     }
 }
 void ClapTrap::takeDamage(unsigned int amount)
 {
     if(Hit_points >= 1)
     {
-		std::cout << "ClapTrap " << Name << " take damage itself, regaining " << amount << " hit points!\n";
+		std::cout << "ClapTrap " << Name << " take damage itself 🫨, regaining " << amount << " hit points!\n";
 		if(amount <= Hit_points)
 			Hit_points -= amount;
 		else
@@ -70,4 +73,11 @@ void ClapTrap::beRepaired(unsigned int amount)
 	}
     else
 		std::cout << "ClapTrap " << Name << " can't repair itself and remains damaged.\n";
+}
+void ClapTrap::display_data()
+{
+    std::cout << "Name ------------> " << Name << std::endl;
+    std::cout << "Hit point -------> " << Hit_points << std::endl;
+    std::cout << "Energy Points ---> " << Energy_Points << std::endl;
+    std::cout << "Attack Damage ---> " << Attack_Damage << std::endl;
 }

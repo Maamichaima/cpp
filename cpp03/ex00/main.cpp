@@ -2,10 +2,12 @@
 
 int main()
 {
-	ClapTrap a("gg");
+	ClapTrap a("CLAP");
+	a.display_data();
 	a.attack("hadik");
-	a.takeDamage(9);
-	a.takeDamage(5);
-	a.takeDamage(9);
-	// a.beRepaired(5);
+	a.display_data();
+	a.takeDamage(11);
+	a.display_data();
+	a.beRepaired(5);
+	a.display_data();
 }

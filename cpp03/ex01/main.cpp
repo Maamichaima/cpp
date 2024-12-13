@@ -2,14 +2,15 @@
 #include "ScavTrap.hpp"
 int main()
 {
-	// ClapTrap a("gg");
-	ScavTrap s("hihi");
-	s.attack("siif");
+	ScavTrap s("SCAV");
+	s.display_data();
+	s.attack("FF");
+	s.display_data();
     s.beRepaired(101);
-    s.beRepaired(100);
+	s.display_data();
+    s.takeDamage(201);
+	s.display_data();
+    s.takeDamage(3);
 	s.guardGate();
-	s.takeDamage(200);
-	s.takeDamage(200);
-	// s.takeDamage(200);
-	s.attack("sif");
+	s.display_data();
 }
