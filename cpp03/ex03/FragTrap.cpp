@@ -2,21 +2,21 @@
 
 FragTrap::FragTrap()
 {
+    std::cout << "FragTrap:: Default constructor called 👽\n";
     Hit_points = 100;
     Energy_Points = 100;
     Attack_Damage = 30;
-    std::cout << "FragTrap:: Default constructor called\n";
 }
 FragTrap::FragTrap(std::string str):ClapTrap(str)
 {
+    std::cout << "FragTrap:: constructor parameters 👽\n";
     Hit_points = 100;
     Energy_Points = 100;
     Attack_Damage = 30;
-    std::cout << "FragTrap:: constructor parameters\n";
 }
 FragTrap::FragTrap(const FragTrap& x)
 {
-    std::cout << "FragTrap:: copy constructor called\n";
+    std::cout << "FragTrap:: copy constructor called 👽\n";
     (*this) = x;
 }
 FragTrap::~FragTrap()

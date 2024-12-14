@@ -2,22 +2,21 @@
 
 ScavTrap::ScavTrap()
 {
-    std::cout << "ScavTrap:: Default constructor called\n";
+    std::cout << "ScavTrap:: Default constructor called 👾\n";
 	Hit_points = 100;
     Energy_Points = 50;
     Attack_Damage = 20;
 }
 ScavTrap::ScavTrap(std::string str):ClapTrap(str)
 {
-    // Name = str;//hyeed
+    std::cout << "ScavTrap:: constructor parameters 👾\n";
     Hit_points = 100;
     Energy_Points = 50;
     Attack_Damage = 20;
-    std::cout << "ScavTrap:: constructor parameters\n";
 }
 ScavTrap::ScavTrap(const ScavTrap& x)
 {
-    std::cout << "ScavTrap:: copy constructor called\n";
+    std::cout << "ScavTrap:: copy constructor called 👾\n";
     (*this) = x;
 }
 ScavTrap::~ScavTrap()

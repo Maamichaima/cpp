@@ -3,8 +3,6 @@
 int main()
 {
 	ClapTrap a("CLAP");
-	ClapTrap b(a);
-
 	a.display_data();
 	a.attack("hadik");
 	a.display_data();
