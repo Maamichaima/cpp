@@ -2,7 +2,7 @@
 #define CHARACTER_HPP
 
 #include "ICharacter.hpp"
-#include "lst.hpp"
+#include "Lst.hpp"
 
 class Character : public ICharacter
 {

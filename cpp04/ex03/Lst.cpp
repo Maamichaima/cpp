@@ -1,6 +1,6 @@
-#include "lst.hpp"
+#include "Lst.hpp"
 
-t_lst* lst::new_lst(AMateria *x)
+t_lst* Lst::new_lst(AMateria *x)
 {
     t_lst *c;
     
@@ -27,12 +27,12 @@ void add_back(t_lst **head, t_lst *n)
     tmp->next = n;
 }
 
-lst::lst()
+Lst::Lst()
 {
     head = NULL;
 }
 
-lst::~lst()
+Lst::~Lst()
 {
 	t_lst *tmp;
     while (head)
@@ -44,7 +44,7 @@ lst::~lst()
     }
 }
 
-void lst::add_back(t_lst *n)
+void Lst::add_back(t_lst *n)
 {
     if(!(head))
     {
@@ -58,4 +58,16 @@ void lst::add_back(t_lst *n)
         tmp = tmp->next;
     }
     tmp->next = n;
+}
+Lst::Lst(const Lst& x)
+{
+    (*this) = x;
+}
+Lst& Lst::operator=(const Lst& other)
+{
+    if(this != &other)
+    {
+        this->head = other.head;
+    }
+    return (*this);
 }

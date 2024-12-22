@@ -1,4 +1,4 @@
-SRC = main.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp  MateriaSource.cpp lst.cpp
+SRC = main.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp  MateriaSource.cpp Lst.cpp
 OBJ = ${SRC:.cpp=.o}
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXX = c++ 

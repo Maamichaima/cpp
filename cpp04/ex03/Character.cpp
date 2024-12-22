@@ -1,7 +1,7 @@
 #include "Character.hpp"
-#include "lst.hpp"
+#include "Lst.hpp"
 
-lst l;
+Lst l;
 Character::Character()
 {
     for(int i = 0; i < 4; i++)
@@ -58,12 +58,10 @@ void Character::equip(AMateria* m)
 }
 void Character::unequip(int idx)
 {
-	// (void) idx;//haaadi
 	for(int i = 0; i < 4; i++)
 	{
 		if(i == idx && _inventory[i] != NULL)
         {
-            // delete _inventory[i];
             l.add_back(l.new_lst(_inventory[i]));
             _inventory[i] = NULL;
         }
