@@ -21,5 +21,4 @@ class Character : public ICharacter
 		void use(int idx, ICharacter& target);
 };
 
-// extern lst l;
 #endif
