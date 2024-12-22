@@ -1,0 +1,18 @@
+#ifndef DOG_HPP
+#define	DOG_HPP
+
+#include "Animal.hpp"
+#include "Brain.hpp"
+
+class Dog: public Animal
+{
+	Brain *b;
+	public:
+		Dog();
+		Dog(Dog&);
+		~Dog();
+		Dog& operator=(const Dog& other);
+		void makeSound() const;
+};
+
+#endif
