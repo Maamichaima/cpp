@@ -34,12 +34,14 @@ lst::lst()
 
 lst::~lst()
 {
+	t_lst *tmp;
     while (head)
     {
-        delete head;
+        delete head->m;
+		tmp = head;
         head = head->next;
+		delete tmp;
     }
-    
 }
 
 void lst::add_back(t_lst *n)
