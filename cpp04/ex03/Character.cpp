@@ -1,5 +1,7 @@
 #include "Character.hpp"
+#include "lst.hpp"
 
+lst l;
 Character::Character()
 {
     for(int i = 0; i < 4; i++)
@@ -9,7 +11,7 @@ Character::Character()
 }
 Character::~Character()
 {
-     for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 4; i++)
     {
 		if (_inventory[i])
         	delete _inventory[i];
@@ -56,11 +58,15 @@ void Character::equip(AMateria* m)
 }
 void Character::unequip(int idx)
 {
+	// (void) idx;//haaadi
 	for(int i = 0; i < 4; i++)
 	{
-		if(_inventory[i])
-			delete _inventory[i];
-		_inventory[i] = NULL;
+		if(i == idx && _inventory[i] != NULL)
+        {
+            // delete _inventory[i];
+            l.add_back(l.new_lst(_inventory[i]));
+            _inventory[i] = NULL;
+        }
 	}
 }
 void Character::use(int idx, ICharacter& target)

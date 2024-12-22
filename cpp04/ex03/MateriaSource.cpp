@@ -13,7 +13,7 @@ void MateriaSource::learnMateria(AMateria *m)
     {
         if(_templates[i] == NULL)
 		{
-            _templates[i] = m->clone();
+            _templates[i] = m;
 			break ;
 		}
     }

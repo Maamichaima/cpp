@@ -1,6 +1,6 @@
-SRC = main.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp ICharacter.cpp IMateriaSource.cpp MateriaSource.cpp
+SRC = main.cpp AMateria.cpp Ice.cpp Cure.cpp Character.cpp ICharacter.cpp IMateriaSource.cpp MateriaSource.cpp lst.cpp
 OBJ = ${SRC:.cpp=.o}
-# CXXFLAGS = -std=c++98 -fsanitize=address -g3
+# CXXFLAGS =  -fsanitize=address -g3
 CXX = c++ 
 NAME = ex03
 

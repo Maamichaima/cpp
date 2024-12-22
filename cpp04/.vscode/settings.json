@@ -61,6 +61,12 @@
 		"chrono": "cpp",
 		"compare": "cpp",
 		"concepts": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"*.tcc": "cpp",
+		"charconv": "cpp",
+		"format": "cpp",
+		"numbers": "cpp",
+		"span": "cpp",
+		"text_encoding": "cpp"
 	}
 }

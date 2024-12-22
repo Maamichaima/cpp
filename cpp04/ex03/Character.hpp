@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 
 #include "ICharacter.hpp"
+#include "lst.hpp"
 
 class Character : public ICharacter
 {
@@ -20,5 +21,5 @@ class Character : public ICharacter
 		void use(int idx, ICharacter& target);
 };
 
-
+extern lst l;
 #endif

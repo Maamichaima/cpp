@@ -4,7 +4,7 @@ Brain::Brain()
 {
 	std::cout << "Brain:: Default constructor called\n";
 }
-Brain::Brain(Brain& x)
+Brain::Brain(const Brain& x)
 {
 	std::cout << "Brain:: copy constructor called \n";
 	(*this) = x;
@@ -18,7 +18,10 @@ Brain& Brain::operator=(const Brain& other)
 	std::cout << "Brain:: Copy assignment operator called\n";
 	if(this != &other)
 	{
-		// this->ideas = other.ideas;
+		for (int i = 0; i < 100 ; i++)
+		{
+			this->ideas[i] = other.ideas[i];
+		}
 	}
 	return (*this);
 }

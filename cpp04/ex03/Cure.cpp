@@ -2,13 +2,12 @@
 
 Cure::Cure():AMateria("cure")
 {
+
 }
 Cure::~Cure()
 {
+    
 }
-// void Cure::use(ICharacter &target)
-// {
-// }
 Cure::Cure(const Cure &c)
 {
     (*this) = c;
@@ -25,7 +24,6 @@ AMateria* Cure::clone() const
 {
 	Cure *c = new Cure();
 	return c;
-	// return nullptr;
 }
 void Cure::use(ICharacter& target)
 {

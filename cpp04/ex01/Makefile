@@ -1,7 +1,7 @@
 
 SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 OBJ = ${SRC:.cpp=.o}
-# CXXFLAGS = -Wall -Wextra -Werror -std=c++98x
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXX = c++
 NAME = ex01
 

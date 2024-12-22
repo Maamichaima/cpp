@@ -21,8 +21,7 @@ Dog& Dog::operator=(const Dog& other)
 	if(this != &other)
 	{
 		this->type = other.type;
-		// this->b = other.b;
-		this->b = new Brain(*other.b);// deep copy
+		this->b = new Brain(*other.b);
 	}
 	return (*this);
 }

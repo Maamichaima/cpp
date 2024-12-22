@@ -8,12 +8,12 @@ int main()
 	const Animal* cat = new Cat();
 	const WrongAnimal* wrongmeta = new WrongAnimal();
 	const WrongAnimal* wrongcat = new WrongCat();
-	std::cout << dog->getType() << " " << std::endl;
-	std::cout << cat->getType() << " " << std::endl;
+	std::cout << dog->getType() << std::endl;
+	std::cout << cat->getType() << std::endl;
 	cat->makeSound();
 	dog->makeSound();
 	meta->makeSound();
-	std::cout << wrongcat->getType() << " " << std::endl;
+	std::cout << wrongcat->getType() << std::endl;
 	wrongcat->makeSound();
 	wrongmeta->makeSound();
 	delete meta;
