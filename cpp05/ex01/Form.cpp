@@ -1,33 +1,39 @@
 #include "Form.hpp"
 
-void Form::GradeTooHighException()
+// Form::Form()
+// {
+// }
+Form::Form(std::string name, bool isSigned, int gradeToSign, int grade): name(name), isSigned(isSigned), gradeToSign(gradeToSign), grade(grade)
 {
-	std::cout << "sghiiir \n";
 }
-void Form::GradeTooLowException()
+
+Form::~Form()
 {
-	std::cout << "kbiir \n";
+}
+
+const char* Form::GradeTooHighException::what() const throw()
+{
+	std::cout << "sghir \n";
+	return NULL;
+}
+const char* Form::GradeTooLowException::what() const throw()
+{
+	std::cout << "kbiiir \n";
+	return NULL;
 }
 void Form::beSigned(Bureaucrat &x)
 {
-	try
-	{
-		if(x.getGrade() <= gradeToSign)
-			isSigned = true;
-		else
-			throw(grade);
-	}
-	catch(int grade)
-	{
-		GradeTooLowException(); 
-	}	
+	if(x.getGrade() <= gradeToSign)
+		isSigned = true;
+	else
+		throw(Form::GradeTooLowException());
 }
 std::string Form::getName() const
 {
     return name;
 }
 
-const int Form::getGrade() const
+int Form::getGrade() const
 {
     return grade;
 }
@@ -35,12 +41,13 @@ bool Form::getisSigned() const
 {
 	return isSigned;
 }
-const int Form::getgradeToSign() const
+int Form::getgradeToSign() const
 {
 	return gradeToSign;
 }
 std::ostream& operator<<(std::ostream& os, const Form& x)
 {
 	os << x.getName() << ", bureaucrat grade " << x.getGrade();
+	os << ", isSigned --> " << x.getisSigned() << ", gradeToSigne -->" << x.getgradeToSign() << std::endl;
 	return os;
 }

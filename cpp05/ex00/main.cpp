@@ -1,13 +1,20 @@
 #include "Bureaucrat.hpp"
-#include <cstdlib>  // Pour rand() et srand()
-#include <ctime>    // Pour time()
 
 int main()
 {
-    srand(time(NULL)); // Initialisation de la graine aléatoire
-    Bureaucrat b("hhhh", 777);
-	// b.decrementGrade();
-	// b.decrementGrade();
-	std::cout << b;
+	try
+	{
+		Bureaucrat b("nn", 1);
+		b.incrementGrade();
+	}
+	catch(const  Bureaucrat::GradeTooHighException& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	catch(const  Bureaucrat::GradeTooLowException& f)
+	{
+		std::cerr << f.what() << '\n';
+	}
+    return 0;
 }
 

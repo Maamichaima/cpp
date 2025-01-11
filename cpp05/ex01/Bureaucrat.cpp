@@ -3,24 +3,14 @@
 Bureaucrat::Bureaucrat():name("hhhhh")
 {
 }
-Bureaucrat::Bureaucrat(std::string str): name(str)
+Bureaucrat::Bureaucrat(std::string str, int g): name(str), grade(g)
 {
-	grade = rand();
-	// std::cout << << grade << "\n";
-	try
-	{
-		if(grade < 1 || grade > 150)
-			throw (grade);
-		else
-			std::cout << " goood \n";
-	}
-	catch(int grade)
-	{
-		if(grade < 1)
-			GradeTooHighException();
-		else
-			GradeTooLowException();
-	}
+	if(grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else if(grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+	else
+		std::cout << " goood \n";
 }
 Bureaucrat::~Bureaucrat()
 {
@@ -45,31 +35,15 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& x)
 }
 void Bureaucrat::incrementGrade()
 {
-	try
-	{
-		grade--;
-		if(grade < 1)
-			throw grade;
-	}
-	catch(int grade)
-	{
-		if(grade < 1)
-			GradeTooHighException();
-	}
+	grade--;
+	if(grade < 1)
+		throw Bureaucrat::GradeTooHighException();
 }
 void Bureaucrat::decrementGrade()
 {
-	try
-	{
-		grade++;
-		if(grade > 150)
-			throw grade;
-	}
-	catch(int grade)
-	{
-		if(grade > 150)
-			GradeTooLowException();
-	}
+	grade++;
+	if(grade > 150)
+		throw Bureaucrat::GradeTooLowException();
 }
 std::string Bureaucrat::getName() const
 {
@@ -80,11 +54,28 @@ int Bureaucrat::getGrade() const
 {
     return grade;
 }
-void Bureaucrat::GradeTooHighException()
+const char* Bureaucrat::GradeTooHighException::what() const throw() //throw()
 {
-	std::cout << "sghiiir \n";
+	std::cout << "sghir \n";
+	return NULL;
 }
-void Bureaucrat::GradeTooLowException()
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	std::cout << "kbiir \n";
+	std::cout << "kbiiir \n";
+	return NULL;
+}
+
+void Bureaucrat::signForm(Form &x)
+{
+	try
+	{
+		x.beSigned(*this);
+		std::cout << name << " signed " << x.getName() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << name << "couldn't sign " << x.getName() << std::endl;
+	}
+	
+	
 }

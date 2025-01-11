@@ -5,21 +5,12 @@ Bureaucrat::Bureaucrat():name("hhhhh")
 }
 Bureaucrat::Bureaucrat(std::string str, int g): name(str), grade(g)
 {
-	// std::cout << << grade << "\n";
-	try
-	{
-		if(grade < 1 || grade > 150)
-			throw (grade);
-		else
-			std::cout << " goood \n";
-	}
-	catch(int grade)
-	{
-		if(grade < 1)
-			GradeTooHighException();
-		else
-			GradeTooLowException();
-	}
+	if(grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else if(grade > 150)
+		throw Bureaucrat::GradeTooLowException();
+	else
+		std::cout << " goood \n";
 }
 Bureaucrat::~Bureaucrat()
 {
@@ -44,31 +35,15 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& x)
 }
 void Bureaucrat::incrementGrade()
 {
-	try
-	{
-		grade--;
-		if(grade < 1)
-			throw grade;
-	}
-	catch(int grade)
-	{
-		if(grade < 1)
-			GradeTooHighException();
-	}
+	grade--;
+	if(grade < 1)
+		throw Bureaucrat::GradeTooHighException();
 }
 void Bureaucrat::decrementGrade()
 {
-	try
-	{
-		grade++;
-		if(grade > 150)
-			throw grade;
-	}
-	catch(int grade)
-	{
-		if(grade > 150)
-			GradeTooLowException();
-	}
+	grade++;
+	if(grade > 150)
+		throw Bureaucrat::GradeTooLowException();
 }
 std::string Bureaucrat::getName() const
 {
@@ -79,11 +54,22 @@ int Bureaucrat::getGrade() const
 {
     return grade;
 }
-void Bureaucrat::GradeTooHighException()
+// void Bureaucrat::GradeTooHighException()
+// {
+// 	std::cout << "sghiiir \n";
+// }
+// void Bureaucrat::GradeTooLowException()
+// {
+// 	std::cout << "kbiir \n";
+// }
+const char* Bureaucrat::GradeTooHighException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
 {
-	std::cout << "sghiiir \n";
+	std::cout << "sghir \n";
+	return NULL;
 }
-void Bureaucrat::GradeTooLowException()
+const char* Bureaucrat::GradeTooLowException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
 {
-	std::cout << "kbiir \n";
+	std::cout << "kbiiir \n";
+	return NULL;
 }
+
