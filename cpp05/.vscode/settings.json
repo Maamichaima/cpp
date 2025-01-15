@@ -67,6 +67,11 @@
 		"format": "cpp",
 		"numbers": "cpp",
 		"span": "cpp",
-		"text_encoding": "cpp"
+		"text_encoding": "cpp",
+		"deque": "cpp",
+		"fstream": "cpp",
+		"iomanip": "cpp",
+		"stack": "cpp",
+		"filesystem": "cpp"
 	}
 }

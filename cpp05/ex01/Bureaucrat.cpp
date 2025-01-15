@@ -76,6 +76,6 @@ void Bureaucrat::signForm(Form &x)
 	{
 		std::cout << name << "couldn't sign " << x.getName() << std::endl;
 	}
-	
-	
 }
+
+

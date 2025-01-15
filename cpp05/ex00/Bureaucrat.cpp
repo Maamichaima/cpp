@@ -1,6 +1,6 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat():name("hhhhh")
+Bureaucrat::Bureaucrat():name("hhhhh"), grade(150)
 {
 }
 Bureaucrat::Bureaucrat(std::string str, int g): name(str), grade(g)
@@ -45,12 +45,12 @@ void Bureaucrat::decrementGrade()
 	if(grade > 150)
 		throw Bureaucrat::GradeTooLowException();
 }
-std::string Bureaucrat::getName() const
+const std::string& Bureaucrat::getName() const
 {
     return name;
 }
 
-int Bureaucrat::getGrade() const
+const int& Bureaucrat::getGrade() const
 {
     return grade;
 }
@@ -64,8 +64,10 @@ int Bureaucrat::getGrade() const
 // }
 const char* Bureaucrat::GradeTooHighException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
 {
-	std::cout << "sghir \n";
-	return NULL;
+	std::string s;
+	s = "sghir";
+	// std::cout << "sghir \n";
+	return s.c;
 }
 const char* Bureaucrat::GradeTooLowException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
 {
