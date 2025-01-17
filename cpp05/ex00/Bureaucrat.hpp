@@ -22,20 +22,12 @@ class Bureaucrat
 		class GradeTooHighException : std::exception
 		{
 			public:
-			const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW;//noexcept
-			// {
-			// 	std::cout << "sghiir \n";
-			// 	return NULL;
-			// }
+			const char* what() const throw();
 		};
 		class GradeTooLowException : std::exception
 		{
 			public:
-			const char* what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW;
-			// {
-			// 	std::cout << "kbiiir \n";
-			// 	return NULL;
-			// }
+			const char* what() const throw();
 		};
 };
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& x);

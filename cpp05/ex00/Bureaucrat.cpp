@@ -24,7 +24,6 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 	if(this != &other)
 	{
 		this->grade = other.grade;
-		// this->name = other.name;
 	}
 	return (*this);
 }
@@ -54,24 +53,12 @@ const int& Bureaucrat::getGrade() const
 {
     return grade;
 }
-// void Bureaucrat::GradeTooHighException()
-// {
-// 	std::cout << "sghiiir \n";
-// }
-// void Bureaucrat::GradeTooLowException()
-// {
-// 	std::cout << "kbiir \n";
-// }
-const char* Bureaucrat::GradeTooHighException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	std::string s;
-	s = "sghir";
-	// std::cout << "sghir \n";
-	return s.c;
+	return "sghir \n";
 }
-const char* Bureaucrat::GradeTooLowException::what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	std::cout << "kbiiir \n";
-	return NULL;
+	return  "kbiiir \n";
 }
 

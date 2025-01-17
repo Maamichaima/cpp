@@ -6,6 +6,7 @@ int main()
 	{
 		Bureaucrat b("nn", 1);
 		b.incrementGrade();
+		std::cout << b;
 	}
 	catch(const  Bureaucrat::GradeTooHighException& e)
 	{
@@ -17,4 +18,3 @@ int main()
 	}
     return 0;
 }
-

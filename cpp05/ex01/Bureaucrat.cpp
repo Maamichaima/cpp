@@ -56,13 +56,11 @@ int Bureaucrat::getGrade() const
 }
 const char* Bureaucrat::GradeTooHighException::what() const throw() //throw()
 {
-	std::cout << "sghir \n";
-	return NULL;
+	return "sghir \n";
 }
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	std::cout << "kbiiir \n";
-	return NULL;
+	return "kbiiir \n";
 }
 
 void Bureaucrat::signForm(Form &x)

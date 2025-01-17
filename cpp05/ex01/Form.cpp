@@ -1,8 +1,9 @@
 #include "Form.hpp"
 
-// Form::Form()
-// {
-// }
+Form::Form():name(""), isSigned(false), gradeToSign(0), grade(0)
+{
+}
+
 Form::Form(std::string name, bool isSigned, int gradeToSign, int grade): name(name), isSigned(isSigned), gradeToSign(gradeToSign), grade(grade)
 {
 }
