@@ -19,12 +19,12 @@ class Bureaucrat
 		void decrementGrade();
 		const std::string& getName() const;
 		const int& getGrade() const;
-		class GradeTooHighException : std::exception
+		class GradeTooHighException : public std::exception
 		{
 			public:
 			const char* what() const throw();
 		};
-		class GradeTooLowException : std::exception
+		class GradeTooLowException : public std::exception
 		{
 			public:
 			const char* what() const throw();

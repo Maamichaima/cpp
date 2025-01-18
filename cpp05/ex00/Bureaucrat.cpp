@@ -9,13 +9,11 @@ Bureaucrat::Bureaucrat(std::string str, int g): name(str), grade(g)
 		throw Bureaucrat::GradeTooHighException();
 	else if(grade > 150)
 		throw Bureaucrat::GradeTooLowException();
-	else
-		std::cout << " goood \n";
 }
 Bureaucrat::~Bureaucrat()
 {
 }
-Bureaucrat::Bureaucrat(const Bureaucrat& other)
+Bureaucrat::Bureaucrat(const Bureaucrat& other) : name(other.name)
 {
 	(*this) = other;
 }
@@ -55,10 +53,10 @@ const int& Bureaucrat::getGrade() const
 }
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return "sghir \n";
+	return "sghir";
 }
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return  "kbiiir \n";
+	return  "kbiiir";
 }
 

@@ -13,19 +13,19 @@ class Bureaucrat
 	public:
 		Bureaucrat();
 		Bureaucrat(std::string str, int g);
-		Bureaucrat(const Bureaucrat& other);
+		Bureaucrat(const Bureaucrat& other);//name
 		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 		void incrementGrade();
 		void decrementGrade();
 		std::string getName() const;
 		int getGrade() const;
-		class GradeTooHighException : std::exception
+		class GradeTooHighException : public std::exception
 		{
 			public:
-			const char* what() const  throw();//noexcept
+			const char* what() const  throw();
 		};
-		class GradeTooLowException : std::exception
+		class GradeTooLowException : public std::exception
 		{
 			public:
 			const char* what() const throw();
