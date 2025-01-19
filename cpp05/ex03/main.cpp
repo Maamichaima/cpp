@@ -8,7 +8,7 @@ int main ()
 		AForm *x;
 		Intern i;
 		x = i.makeForm("ShrubberyCreationForm", "target");
-		delete (x);
+		delete x;
 	}
 	catch(const  std::exception& e)
 	{

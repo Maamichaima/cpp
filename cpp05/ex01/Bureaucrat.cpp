@@ -5,7 +5,6 @@ Bureaucrat::Bureaucrat():name("bureee"), grade(150)
 }
 Bureaucrat::Bureaucrat(std::string str, int g): name(str), grade(g)
 {
-	//rand()
 	if(grade < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if(grade > 150)
