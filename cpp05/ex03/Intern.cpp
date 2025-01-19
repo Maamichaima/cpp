@@ -13,7 +13,7 @@ AForm *creatShrubbery(const std::string target)
 }
 AForm *creatPresidential(const std::string target)
 {
-    return (new PresidentialPardonForm(target));---
+    return (new PresidentialPardonForm(target));
 }
 AForm *creatRobotomy(const std::string target)
 {
@@ -25,7 +25,6 @@ AForm *Intern::makeForm(std::string formName, std::string target)
     FormPair f[3] = {{"ShrubberyCreationForm", &creatShrubbery}, {"PresidentialPardonForm", &creatPresidential}, {"RobotomyRequestForm", &creatRobotomy}};
     for(int i = 0; i < 3; i++)
     {
-        // std::cout << target << " " << f[i].name << std::endl;
         if(formName == f[i].name)
         {
             std::cout << "Intern creates " << formName << std::endl;
@@ -34,4 +33,16 @@ AForm *Intern::makeForm(std::string formName, std::string target)
     }
     std::cout << "the formName is not exixte \n";
     return NULL;
+}
+Intern &Intern::operator=(const Intern &x)
+{
+	if(this != &x)
+	{
+
+	}
+	return (*this);
+}
+Intern::Intern(const Intern &x)
+{
+	(*this) = x;
 }

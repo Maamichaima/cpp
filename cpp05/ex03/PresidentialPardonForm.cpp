@@ -16,5 +16,17 @@ PresidentialPardonForm::~PresidentialPardonForm()
 void PresidentialPardonForm::execute(const Bureaucrat &executor)const
 {
 	AForm::checkExecutionRequirements(executor);
-	std::cout << target << " a été gracié par Zaphod Beeblebrox.\n";
+	std::cout << target << " has been pardoned by Zaphod Beeblebrox\n";
+}
+PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &x)
+{
+	if(this != &x)
+	{
+		target = x.target;
+	}
+	return (*this);
+}
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &x)
+{
+	(*this) = x;
 }

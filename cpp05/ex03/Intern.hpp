@@ -13,6 +13,8 @@ class Intern
     public:
         Intern();
         ~Intern();
+        Intern(const Intern& x);
+		Intern& operator=(const Intern& x);
         AForm *makeForm(std::string formName, std::string target);
 };
 struct FormPair

@@ -5,12 +5,10 @@ int main ()
 {
 	try
 	{
+		AForm *x;
 		Intern i;
-		i.makeForm("PresidentialPardonForm", "target");
-		// Bureaucrat b("nn", 1);
-		// ShrubberyCreationForm S("lll");
-		// b.signForm(S);
-		// b.executeForm(S);
+		x = i.makeForm("ShrubberyCreationForm", "target");
+		delete (x);
 	}
 	catch(const  std::exception& e)
 	{

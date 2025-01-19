@@ -12,17 +12,19 @@ class AForm
 		const int gradeToSign;
 		const int gradeToExecute;
 	public:
-		// AForm();
-		AForm(std::string name, bool isSigned, int gradeToSign, int grade);
+		AForm();
+		AForm(std::string name, bool isSigned, int gradeToSign, int gradeToExecute);
+		AForm(const AForm& other);
 		~AForm();
+		AForm& operator=(const AForm& other);
 		std::string getName() const;
-		int getgradeToExecute() const;
+		int getGradeToExecute() const;
 		bool getisSigned() const;
 		int getgradeToSign() const;
 		class GradeTooHighException : public std::exception
 		{
 			public:
-			const char* what() const  throw();//noexcept
+				const char* what() const  throw();
 		};
 		class GradeTooLowException : public std::exception
 		{

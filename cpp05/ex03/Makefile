@@ -1,6 +1,6 @@
 SRC = Bureaucrat.cpp main.cpp AForm.cpp ShrubberyCreationForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp Intern.cpp
 OBJ = ${SRC:.cpp=.o}
-CXXFLAGS = -std=c++98 -g3 #-fsanitize=address 
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98  
 CXX = c++
 NAME = ex03
 

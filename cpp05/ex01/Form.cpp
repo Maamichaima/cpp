@@ -1,26 +1,32 @@
 #include "Form.hpp"
 
-Form::Form():name(""), isSigned(false), gradeToSign(0), grade(0)
+Form::Form():name(""), isSigned(false), gradeToSign(0), gradeToExecute(0)
 {
 }
-
-Form::Form(std::string name, bool isSigned, int gradeToSign, int grade): name(name), isSigned(isSigned), gradeToSign(gradeToSign), grade(grade)
+Form::Form(std::string name, bool isSigned, int gradeToSign, int gradeToExecute): name(name), isSigned(isSigned), gradeToSign(gradeToSign), gradeToExecute(gradeToExecute)
 {
 }
-
+Form::Form(const Form &other):name(other.name), isSigned(other.isSigned), gradeToSign(other.gradeToSign), gradeToExecute(other.gradeToExecute)
+{
+}
 Form::~Form()
 {
 }
-
+Form &Form::operator=(const Form &other)
+{
+    if(this != &other)
+	{
+		this->isSigned = other.isSigned;
+	}
+	return (*this);
+}
 const char* Form::GradeTooHighException::what() const throw()
 {
-	std::cout << "sghir \n";
-	return NULL;
+	return "too low ⬇️ ";
 }
 const char* Form::GradeTooLowException::what() const throw()
 {
-	std::cout << "kbiiir \n";
-	return NULL;
+	return "too high ⬆️ ";
 }
 void Form::beSigned(Bureaucrat &x)
 {
@@ -34,9 +40,9 @@ std::string Form::getName() const
     return name;
 }
 
-int Form::getGrade() const
+int Form::getGradeToExecute() const
 {
-    return grade;
+    return gradeToExecute;
 }
 bool Form::getisSigned() const
 {
@@ -48,7 +54,7 @@ int Form::getgradeToSign() const
 }
 std::ostream& operator<<(std::ostream& os, const Form& x)
 {
-	os << x.getName() << ", bureaucrat grade " << x.getGrade();
+	os << x.getName() << ", bureaucrat grade " << x.getGradeToExecute();
 	os << ", isSigned --> " << x.getisSigned() << ", gradeToSigne -->" << x.getgradeToSign() << std::endl;
 	return os;
 }

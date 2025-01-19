@@ -4,17 +4,14 @@ int main()
 {
 	try
 	{
-		Bureaucrat b("nn", 1);
-		b.incrementGrade();
-		std::cout << b;
+		Bureaucrat b("buree", 120);
+		Form x("fooorm", false, 130, 10);
+		x.beSigned(b);
+		std::cout << b << std::endl;
 	}
-	catch(const  Bureaucrat::GradeTooHighException& e)
+	catch(const  std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
-	}
-	catch(const  Bureaucrat::GradeTooLowException& f)
-	{
-		std::cerr << f.what() << '\n';
 	}
     return 0;
 }

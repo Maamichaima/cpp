@@ -14,9 +14,23 @@ RobotomyRequestForm::~RobotomyRequestForm()
 void RobotomyRequestForm::execute(const Bureaucrat &executor)const
 {
 	AForm::checkExecutionRequirements(executor);
-	// if (rand() % 2 == 0) {
-    //     std::cout << " has been robotomized successfully!" << std::endl;
-    // } else {
-    //     std::cout << "The robotomy failed!" << std::endl;
-    // }
+	// seed
+    srand((time(0)));
+	if (rand() % 2 == 0) {
+        std::cout << " has been robotomized successfully!" << std::endl;
+    } else {
+        std::cout << "The robotomy failed!" << std::endl;
+    }
+}
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &x)
+{
+	if(this != &x)
+	{
+		target = x.target;
+	}
+	return (*this);
+}
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &x)
+{
+	(*this) = x;
 }
