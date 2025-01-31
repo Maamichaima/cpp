@@ -52,6 +52,8 @@ void identify(Base *p)
 		std::cout << "B\n";
 	else if(pC)
 		std::cout << "C\n";
+	else
+		std::cout << "n'est existe pas\n";
 }
 
 void identify(Base &p)

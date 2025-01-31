@@ -6,9 +6,7 @@
 #include<iostream>
 
 class Base
-{
-	private:
-		
+{	
 	public:
 		Base();
 		Base(const Base& other);

@@ -1,8 +1,8 @@
-
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
+
 
 int main()
 {
@@ -12,7 +12,5 @@ int main()
     Base *randomBase = generate();
     identify(randomBase);
     delete randomBase;
-
     return 0;
 }
-

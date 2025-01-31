@@ -1,8 +1,5 @@
 #include"ScalarConverter.hpp"
 
-// std::string ScalarConverter::input;
-
-
 int isInt(std::string str)
 {
 	int i = 0;
@@ -13,10 +10,8 @@ int isInt(std::string str)
 		return 0;
 	while(str[i])
 	{
-		if(!isnumber(str[i]))
-		{
+		if(!isdigit(str[i]))
 			return 0;
-		}
 		i++;
 	}
 	return 1;
@@ -42,10 +37,8 @@ int isFloat(std::string str)
 		return 0;
 	while(str[i])
 	{
-		if(!isnumber(str[i]) && str[i] != '.' && str[i] != 'f')
-		{
+		if(!isdigit(str[i]) && str[i] != '.' && str[i] != 'f')
 			return 0;
-		}
 		i++;
 	}
 	if(countChar(str, '.') != 1 || countChar(str, 'f') != 1)
@@ -63,7 +56,7 @@ int isDouble(std::string str)
 		return 0;
 	while(str[i])
 	{
-		if(!isnumber(str[i]) && str[i] != '.')
+		if(!isdigit(str[i]) && str[i] != '.')
 		{
 			return 0;
 		}
@@ -73,26 +66,24 @@ int isDouble(std::string str)
 		return 0;
 	return 1;
 }
-
 int isChar(std::string c)
 {
 	if(c.length() != 1)
 		return 0;
-	if(!isascii(c[0]))
+	if(isdigit(c[0]))
 		return 0;
 	return 1;
 }
-
 void ScalarConverter::toInt()
 {
 	flage f = inisialse_();
 	ScalarConverter::type = "int";
 	double d = atof(ScalarConverter::input.c_str());
 	if(d <= INT_MAX && d >= INT_MIN)
-		ScalarConverter::_int = atoi(ScalarConverter::input.c_str());
+		ScalarConverter::_int = static_cast<int>(d);
 	else
 		f.intFlage = 1;
-	if(f.intFlage == 0 && d > std::numeric_limits<float>::lowest() && d < std::numeric_limits<float>::max())
+	if(f.intFlage == 0 && d > -std::numeric_limits<float>::max() && d < std::numeric_limits<float>::max())
 		ScalarConverter::_float = static_cast<float>(d);
 	else
 		f.floatFlage = 1;
@@ -111,11 +102,7 @@ void ScalarConverter::toChar()
 {
 	flage f = inisialse_();
 	ScalarConverter::type = "char";
-	// double d = atof(ScalarConverter::input.c_str());
-	if(isascii(ScalarConverter::input[0]))
-		ScalarConverter::_char = static_cast<char>(ScalarConverter::input[0]);
-	else
-		f.charFlage = 1;
+	ScalarConverter::_char = static_cast<char>(ScalarConverter::input[0]);
 	if(f.charFlage == 0)
 		ScalarConverter::_int = static_cast<int>(ScalarConverter::input.c_str()[0]);
 	else
@@ -136,16 +123,16 @@ void ScalarConverter::toFloat()
 	flage f = inisialse_();
 	ScalarConverter::type = "float";
 	double d = atof(ScalarConverter::input.c_str());
-	if(d > std::numeric_limits<float>::lowest() && d < std::numeric_limits<float>::max())
+	if(d >= -std::numeric_limits<float>::max() && d <= std::numeric_limits<float>::max())
 		ScalarConverter::_float = static_cast<float>(d);
 	else
 		f.floatFlage = 1;
 	if(f.floatFlage == 0 && d <= INT_MAX && d >= INT_MIN)
-		ScalarConverter::_int = atoi(ScalarConverter::input.c_str());
+		ScalarConverter::_int = static_cast<int>(d);
 	else
 		f.intFlage = 1;
 	if(f.intFlage == 0 && f.floatFlage == 0 && isascii(ScalarConverter::_int))
-		ScalarConverter::_char = ScalarConverter::input[0];
+		ScalarConverter::_char = static_cast<char>(d);
 	else
 		f.charFlage = 1;
 	if(f.floatFlage == 0)
@@ -161,7 +148,7 @@ void ScalarConverter::toDouble()
 	ScalarConverter::type = "double";
 	double d = atof(ScalarConverter::input.c_str());
 	ScalarConverter::_double = d;
-	if(d > std::numeric_limits<float>::lowest() && d < std::numeric_limits<float>::max())
+	if(d > -std::numeric_limits<float>::max() && d < std::numeric_limits<float>::max())
 		ScalarConverter::_float = static_cast<float>(d);
 	else
 		f.floatFlage = 1;
@@ -176,10 +163,27 @@ void ScalarConverter::toDouble()
 	ScalarConverter::display_all(f);
 }
 
+std::string get_0(double x)
+{
+	std::ostringstream s;
+	s << x;
+	int count_e = countChar(s.str(), 'e');
+	int count = countChar(s.str(), '.');
+	if(count_e == 0 && count == 0)
+		return ".0";
+	else
+		return "";
+}
+
 void ScalarConverter::display_all(flage f)
 {
 	if(!f.charFlage)
-		std::cout << "char : " << ScalarConverter::_char << "\n";
+	{
+		if(!std::isprint(ScalarConverter::_char))
+			std::cout << "char : Non displayable\n";
+		else
+			std::cout << "char : " << ScalarConverter::_char << "\n";
+	}
 	else
 		std::cout << "char : imposible\n";
 	if(!f.intFlage)
@@ -187,15 +191,14 @@ void ScalarConverter::display_all(flage f)
 	else
 		std::cout << "int : imposible\n";
 	if(!f.floatFlage)
-		std::cout << "float : " << ScalarConverter::_float << ".0f\n";
+		std::cout << "float : " << ScalarConverter::_float << get_0(ScalarConverter::_float) << "f\n";
 	else
 		std::cout << "float : imposible\n";
 	if(!f.doubleFlage)
-		std::cout << "double : " << ScalarConverter::_double << ".0\n";
+		std::cout << "double : " << ScalarConverter::_double << get_0(ScalarConverter::_double) << "\n";
 	else
 		std::cout << "double : imposible\n";
 }
-
 flage inisialse_()
 {
 	flage f;
@@ -204,4 +207,8 @@ flage inisialse_()
 	f.floatFlage = 0;
 	f.doubleFlage = 0;
 	return f;
+}
+ScalarConverter::ScalarConverter()
+{
+	
 }

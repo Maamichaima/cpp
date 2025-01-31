@@ -1,4 +1,4 @@
-SRC = Base.cpp A.cpp B.cpp C.cpp main.cpp
+SRC = Base.cpp main.cpp
 OBJ = ${SRC:.cpp=.o}
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98  
 CXX = c++
