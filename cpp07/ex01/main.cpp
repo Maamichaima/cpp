@@ -6,15 +6,6 @@ void incriment(t& x)
 	x++;
 }
 
-template <typename t, typename f>
-void iter(t *x, int size,f func)
-{
-	for(int i = 0; i < size; i++)
-	{
-		func(x[i]);
-	}	
-}
-
 int main()
 {
 	char tab[5] = {'a', 'b', 'c', 'd', 'e'};

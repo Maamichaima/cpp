@@ -2,10 +2,14 @@
 #define ITER_HPP
 
 #include <iostream>
-template <typename t>
-void incriment(t& x);
 
 template <typename t, typename f>
-void iter(t *x, int size,f func);
+void iter(t *x, int size,f func)
+{
+	for(int i = 0; i < size; i++)
+	{
+		func(x[i]);
+	}	
+}
 
 #endif

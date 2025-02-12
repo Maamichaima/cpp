@@ -16,7 +16,6 @@ class Array
 		Array(const Array& other);
 		Array& operator=(const Array& other);
 		T&	operator[](size_t index);
-		void	*operator new[](size_t n);
 		size_t	size();
 		Array(int size);
 		~Array();
@@ -30,20 +29,26 @@ template <typename T>
 Array<T>::Array(unsigned int n)
 {
 	array = new T[n];
+	_size = n;
 }
 
 template <typename T>
 Array<T>::Array(const Array &other)
 {
-	*this = other;
+	this->array = new T[other._size];
+	for(size_t i = 0; i < other._size; i++)
+	{
+		this->array[i] = other.array[i];
+	}
+	this->_size = other._size;
 }
 
 template <typename T>
 Array<T> &Array<T>::operator=(const Array<T> &other)
 {
+	//free array
 	if(this != &other)
 	{
-		//shdow
 		this->array = new T[other._size];
 		for(size_t i = 0; i < other._size; i++)
 		{
@@ -57,15 +62,9 @@ Array<T> &Array<T>::operator=(const Array<T> &other)
 template <typename T>
 T& Array<T>::operator[](size_t index)
 {
-	if (index >= _size || index < 0)
+	if (index >= _size)
 		throw(std::out_of_range("index is out of range"));
 	return array[index];
-}
-
-template <typename T>
-void *Array<T>::operator new[](size_t n)
-{
-	return ::operator new(n);
 }
 
 template <typename T>

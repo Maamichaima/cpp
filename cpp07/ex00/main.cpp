@@ -1,26 +1,5 @@
 #include "whatever.hpp"
-template <typename T> T max(T x, T y)
-{
-    if (x >= y)
-		return x;
-	else
-		return y;
-}
-template <typename T> T min(T x, T y)
-{
-    if (x <= y)
-		return x;
-	else
-		return y;
-}
-template <typename t> void swap(t &x, t &y)
-{
-	t s;
 
-	s = x;
-	x = y;
-	y = s;
-}
 int main( void ) {
 	int a = 2;
 	int b = 3;
