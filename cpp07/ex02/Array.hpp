@@ -2,7 +2,7 @@
 #define ARRAY_HPP
 
 #include <iostream>
-// #include<stdlib.h>
+#include<cstdlib>
 
 template <typename T>
 class Array
@@ -43,8 +43,12 @@ Array<T> &Array<T>::operator=(const Array<T> &other)
 {
 	if(this != &other)
 	{
-		//shdow 
-		this->array = other.array;
+		//shdow
+		this->array = new T[other._size];
+		for(size_t i = 0; i < other._size; i++)
+		{
+			this->array[i] = other.array[i];
+		}
 		this->_size = other._size;
 	}
 	return (*this);
@@ -54,7 +58,7 @@ template <typename T>
 T& Array<T>::operator[](size_t index)
 {
 	if (index >= _size || index < 0)
-		throw(std::exception());// wach hadi ola chi haja khra 
+		throw(std::out_of_range("index is out of range"));
 	return array[index];
 }
 
@@ -69,13 +73,6 @@ inline size_t Array<T>::size()
 {
 	return this->_size;
 }
-
-// void *operator new[](size_t n) throw()
-// {
-// 	// if(n < 0)
-// 	// 	throw(std::bad_alloc);
-// 	return ::operator new(n);
-// }
 
 template <typename T>
 inline Array<T>::Array(int size)
