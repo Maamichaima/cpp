@@ -17,14 +17,15 @@ class Array
 		Array& operator=(const Array& other);
 		T&	operator[](unsigned int index);
 		unsigned int	size();
-		Array(int size);
 		~Array();
 };
 
 template <typename T>
 Array<T>::Array(): array(NULL), _size(0)
 {
+
 }
+
 template <typename T>
 Array<T>::Array(unsigned int n)
 {
@@ -72,13 +73,6 @@ template <typename T>
 unsigned int Array<T>::size()
 {
 	return this->_size;
-}
-
-template <typename T>
-Array<T>::Array(int size)
-{
-	this->_size = size;
-	this->array = new T[size];
 }
 
 template <typename T>
