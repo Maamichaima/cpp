@@ -9,14 +9,14 @@ class Array
 {
 	private:
 		T *array;
-		size_t _size;
+		unsigned int _size;
 	public:
 		Array();
 		Array(unsigned int n);
 		Array(const Array& other);
 		Array& operator=(const Array& other);
-		T&	operator[](size_t index);
-		size_t	size();
+		T&	operator[](unsigned int index);
+		unsigned int	size();
 		Array(int size);
 		~Array();
 };
@@ -36,7 +36,7 @@ template <typename T>
 Array<T>::Array(const Array &other)
 {
 	this->array = new T[other._size];
-	for(size_t i = 0; i < other._size; i++)
+	for(unsigned int i = 0; i < other._size; i++)
 	{
 		this->array[i] = other.array[i];
 	}
@@ -46,11 +46,12 @@ Array<T>::Array(const Array &other)
 template <typename T>
 Array<T> &Array<T>::operator=(const Array<T> &other)
 {
-	//free array
+	if(this->array )
+		delete []this->array;
 	if(this != &other)
 	{
 		this->array = new T[other._size];
-		for(size_t i = 0; i < other._size; i++)
+		for(unsigned int i = 0; i < other._size; i++)
 		{
 			this->array[i] = other.array[i];
 		}
@@ -60,7 +61,7 @@ Array<T> &Array<T>::operator=(const Array<T> &other)
 }
 
 template <typename T>
-T& Array<T>::operator[](size_t index)
+T& Array<T>::operator[](unsigned int index)
 {
 	if (index >= _size)
 		throw(std::out_of_range("index is out of range"));
@@ -68,13 +69,13 @@ T& Array<T>::operator[](size_t index)
 }
 
 template <typename T>
-inline size_t Array<T>::size()
+unsigned int Array<T>::size()
 {
 	return this->_size;
 }
 
 template <typename T>
-inline Array<T>::Array(int size)
+Array<T>::Array(int size)
 {
 	this->_size = size;
 	this->array = new T[size];
@@ -83,7 +84,7 @@ inline Array<T>::Array(int size)
 template <typename T>
 Array<T>::~Array()
 {
-	// delete 
+	delete []array;
 }
 
 #endif
