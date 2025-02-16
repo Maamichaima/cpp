@@ -2,7 +2,8 @@
 #define SPAN_HPP
 
 #include <iostream>
-
+#include <vector>
+#include <algorithm>
 class Span
 {
 	private:
@@ -15,31 +16,6 @@ class Span
 		~Span();
 };
 
-Span::Span(int n)
-{
-	N.insert(N.end(), n);
-}
-
-void Span::addNumber(int N)
-{
-	this->N.insert(this->N.end(), N);
-	// check ??
-}
-
-int Span::shortestSpan()
-{
-
-	return 0;
-}
-
-int Span::longestSpan()
-{
-	return 0;
-}
-
-Span::~Span()
-{
-}
 
 
 #endif
