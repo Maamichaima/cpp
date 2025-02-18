@@ -1,9 +1,8 @@
 #include "Span.hpp"
 
-
 Span::Span(int n)
 {
-	N.insert(N.end(), n);
+	
 }
 
 void Span::addNumber(int N)
@@ -14,12 +13,20 @@ void Span::addNumber(int N)
 
 int Span::shortestSpan()
 {
-	std::vector<int>::iterator _max = std::max_element(N.begin(), N.end());
     std::vector<int>::iterator it;
-    for(it = N.begin(); it < N.end(); it++)
+	int min = 200;
+	std::sort(N.begin(), N.end());
+	std::vector<int>::iterator prev;
+    for(it = N.begin() + 1; it != N.end(); it++)
     {
-        if(it)3
+		prev = it - 1;
+		int x = *it - *prev;
+		if(x < min)
+			min = x;
+		std::cout << "it -->" << *it << " prev --->" << *prev <<  "\n";
+		std::cout << " x --> " << x << " min --> " << min << "\n";
     }
+	return min;
 }
 
 int Span::longestSpan()
@@ -32,4 +39,5 @@ int Span::longestSpan()
 
 Span::~Span()
 {
+
 }
