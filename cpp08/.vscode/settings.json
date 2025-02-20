@@ -107,6 +107,7 @@
 		"spanstream": "cpp",
 		"stacktrace": "cpp",
 		"format": "cpp",
-		"text_encoding": "cpp"
+		"text_encoding": "cpp",
+		"stack": "cpp"
 	}
 }

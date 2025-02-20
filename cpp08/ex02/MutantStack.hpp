@@ -6,12 +6,14 @@
 #include <deque>
 #include <iterator>
 #include <stack>
-template<typename T, typename Container = std::deque<T>>
+template<typename T, typename Container = std::deque<T> >
 class MutantStack
 {
     private:
         Container x;
     public:
+		typedef	typename Container::iterator iterator;
+
         MutantStack();
         ~MutantStack();
         bool empty() const;
@@ -20,25 +22,25 @@ class MutantStack
         const T& top() const;
         void push(const T& value);
         void pop();
-        class iterator : public std::iterator
-        {
-            int x;
-        };
-        MutantStack::iterator begin()
-        {
-            return this->begin();
-        }
+		iterator begin();
+		iterator end();
+        // class iterator
+        // {
+		// 	private:
+		// 	public:
+        // };
+
 };
 
-template<typename T, typename Container = std::deque<T>>
+template<typename T, typename Container>
 bool operator<(const MutantStack<T, Container> &x, const MutantStack<T, Container> &y);
-template<typename T, typename Container = std::deque<T>>
+template<typename T, typename Container>
 bool operator>(const MutantStack<T, Container>&x, const MutantStack<T, Container>&y);
-template<typename T, typename Container = std::deque<T>>
+template<typename T, typename Container>
 bool operator<=(const MutantStack<T, Container>&x, const MutantStack<T, Container>&y);
-template<typename T, typename Container = std::deque<T>>
+template<typename T, typename Container>
 bool operator>=(const MutantStack<T, Container>&x, const MutantStack<T, Container>&y);
-template<typename T, typename Container = std::deque<T>>
+template<typename T, typename Container>
 bool operator!=(const MutantStack<T, Container>&x, const MutantStack<T, Container>&y);
 
 template <typename T, typename Container>
@@ -87,6 +89,17 @@ inline void MutantStack<T, Container>::pop()
     x.pop_back();
 }
 
+template <typename T, typename Container>
+inline typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin()
+{
+	return x.begin();
+}
+
+template <typename T, typename Container>
+inline typename MutantStack<T, Container>::iterator MutantStack<T, Container>::end()
+{
+	return x.end();
+}
 
 template <typename T, typename Container>
 bool operator>(const MutantStack<T, Container> &x, const MutantStack<T, Container> &y)
