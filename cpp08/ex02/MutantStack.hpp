@@ -12,8 +12,7 @@ class MutantStack
     private:
         Container x;
     public:
-		typedef	typename Container::iterator iterator;
-
+        typedef typename Container::iterator iterator;
         MutantStack();
         ~MutantStack();
         bool empty() const;
@@ -23,14 +22,20 @@ class MutantStack
         void push(const T& value);
         void pop();
 		iterator begin();
-		iterator end();
-        // class iterator
-        // {
-		// 	private:
-		// 	public:
-        // };
-
+        iterator end();
 };
+
+template<typename T, typename Container>
+typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin()
+{
+    return x.begin();
+}
+
+template<typename T, typename Container>
+typename MutantStack<T, Container>::iterator MutantStack<T, Container>::end()
+{
+    return x.end();
+}
 
 template<typename T, typename Container>
 bool operator<(const MutantStack<T, Container> &x, const MutantStack<T, Container> &y);
@@ -44,61 +49,49 @@ template<typename T, typename Container>
 bool operator!=(const MutantStack<T, Container>&x, const MutantStack<T, Container>&y);
 
 template <typename T, typename Container>
-inline MutantStack<T, Container>::MutantStack()
+MutantStack<T, Container>::MutantStack()
 {
 }
 
 template <typename T, typename Container>
-inline MutantStack<T, Container>::~MutantStack()
+MutantStack<T, Container>::~MutantStack()
 {
 }
 
 template <typename T, typename Container>
-inline bool MutantStack<T, Container>::empty() const
+bool MutantStack<T, Container>::empty() const
 {
     return x.empty();
 }
 
 template <typename T, typename Container>
-inline size_t MutantStack<T, Container>::size() const
+size_t MutantStack<T, Container>::size() const
 {
     return x.size();
 }
 
 template <typename T, typename Container>
-inline T &MutantStack<T, Container>::top()
+T &MutantStack<T, Container>::top()
 {
     return x.back();
 }
 
 template <typename T, typename Container>
-inline const T &MutantStack<T, Container>::top() const
+const T &MutantStack<T, Container>::top() const
 {
     return x.back();
 }
 
 template <typename T, typename Container>
-inline void MutantStack<T, Container>::push(const T &value)
+void MutantStack<T, Container>::push(const T &value)
 {
     x.push_back(value);
 }
 
 template <typename T, typename Container>
-inline void MutantStack<T, Container>::pop()
+void MutantStack<T, Container>::pop()
 {
     x.pop_back();
-}
-
-template <typename T, typename Container>
-inline typename MutantStack<T, Container>::iterator MutantStack<T, Container>::begin()
-{
-	return x.begin();
-}
-
-template <typename T, typename Container>
-inline typename MutantStack<T, Container>::iterator MutantStack<T, Container>::end()
-{
-	return x.end();
 }
 
 template <typename T, typename Container>
