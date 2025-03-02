@@ -2,39 +2,91 @@
 
 Span::Span(int n)
 {
+	this->n = n;
+	numbers.reserve(n);
+}
+
+Span::Span()
+{
+}
+
+Span::Span(const Span &s)
+{
+	*this = s;
+}
+
+Span &Span::operator=(const Span &s)
+{
+    if(this != &s)
+	{
+		this->numbers = s.numbers;
+		this->n = s.n;
+	}
+	return *this;
+}
+
+void Span::addNumber(int n)
+{
+	try
+	{
+		if(numbers.size() >= this->n)
+			throw std::out_of_range("Span is full. Cannot add more numbers.");
+		this->numbers.insert(this->numbers.end(), n);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 	
 }
 
-void Span::addNumber(int N)
-{
-	this->N.insert(this->N.end(), N);
-	// check ??
-}
+
+// add another function for addNumberssssssss
 
 int Span::shortestSpan()
 {
-    std::vector<int>::iterator it;
-	int min = 200;
-	std::sort(N.begin(), N.end());
-	std::vector<int>::iterator prev;
-    for(it = N.begin() + 1; it != N.end(); it++)
-    {
-		prev = it - 1;
-		int x = *it - *prev;
-		if(x < min)
-			min = x;
-		std::cout << "it -->" << *it << " prev --->" << *prev <<  "\n";
-		std::cout << " x --> " << x << " min --> " << min << "\n";
-    }
-	return min;
+	try
+	{
+		if(numbers.size() < 2)
+			throw std::logic_error("Not enough numbers to find a span.");
+		std::vector<int>::iterator it;
+		std::vector<int>::iterator prev;
+
+		int minSpan = std::numeric_limits<int>::max();
+		std::sort(numbers.begin(), numbers.end());
+		for(it = numbers.begin() + 1; it != numbers.end(); it++)
+		{
+			prev = it - 1;
+			int span = *it - *prev;
+			if(span < minSpan)
+				minSpan = span;
+		}
+		return minSpan;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	return 0;//??
 }
 
 int Span::longestSpan()
 {
-	std::vector<int>::iterator _max = std::max_element(N.begin(), N.end());
-	std::vector<int>::iterator _min = std::min_element(N.begin(), N.end());
+	try
+	{
+		if(numbers.size() < 2)
+			throw std::logic_error("Not enough numbers to find a span.");
+		std::vector<int>::iterator _max = std::max_element(numbers.begin(), numbers.end());
+		std::vector<int>::iterator _min = std::min_element(numbers.begin(), numbers.end());
+		return *_max - *_min;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 
-	return *_max - *_min;
+	return 0;
+	
 }
 
 Span::~Span()

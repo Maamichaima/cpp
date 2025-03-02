@@ -1,19 +1,20 @@
 #ifndef MUTANTSTACK_HPP
 #define MUTANTSTACK_HPP
 
-
 #include <iostream>
 #include <deque>
 #include <iterator>
 #include <stack>
 template<typename T, typename Container = std::deque<T> >
-class MutantStack
+class MutantStack : public std::stack<T, Container>
 {
     private:
         Container x;
     public:
         typedef typename Container::iterator iterator;
         MutantStack();
+        MutantStack(const MutantStack& other);
+        // operator
         ~MutantStack();
         bool empty() const;
         size_t size() const;
@@ -51,6 +52,12 @@ bool operator!=(const MutantStack<T, Container>&x, const MutantStack<T, Containe
 template <typename T, typename Container>
 MutantStack<T, Container>::MutantStack()
 {
+}
+
+template <typename T, typename Container>
+inline MutantStack<T, Container>::MutantStack(const MutantStack &other)
+{
+    (void)other;
 }
 
 template <typename T, typename Container>
@@ -98,6 +105,12 @@ template <typename T, typename Container>
 bool operator>(const MutantStack<T, Container> &x, const MutantStack<T, Container> &y)
 {
     return (x.c > y.c);
+}
+
+template <typename T, typename Container>
+bool operator<(const MutantStack<T, Container> &x, const MutantStack<T, Container> &y)
+{
+    return (x.c < y.c);
 }
 
 template <typename T, typename Container>

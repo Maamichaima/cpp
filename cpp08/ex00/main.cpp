@@ -7,14 +7,15 @@ int main()
 	v.push_back(1);
 	v.push_back(8);
 	v.push_back(1);
-	v.push_back(0);
+	v.push_back(20);
 	try
     {
-        std::vector<int>::iterator x = easyfind(v, 1);
+        std::vector<int>::iterator x = easyfind(v, 8);
         std::cout << "Element found at position: " << std::distance(v.begin(), x) << std::endl;
     }
     catch (const std::runtime_error &e)
     {
         std::cerr << "Error: " << e.what() << std::endl;
     }
+    
 }

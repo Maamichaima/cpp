@@ -89,7 +89,7 @@ int check_key(std::string str)
     long int m, j, y;
     int count = 0;
     struct tm tm = {0};
-
+    // 2003
     if(strptime(str.c_str(), "%Y-%m-%d", &tm))
     {
         y = tm.tm_year + 1900;
