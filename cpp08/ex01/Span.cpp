@@ -39,52 +39,32 @@ void Span::addNumbers(std::vector<int>::iterator start, std::vector<int>::iterat
 	numbers.insert(numbers.end(), start, end);
 }
 
-// add another function for addNumberssssssss
-
 int Span::shortestSpan()
 {
-	try
-	{
-		if(numbers.size() < 2)
-			throw std::logic_error("Not enough numbers to find a span.");
-		std::vector<int>::iterator it;
-		std::vector<int>::iterator prev;
+	if(numbers.size() < 2)
+		throw std::logic_error("Not enough numbers to find a span.");
+	std::vector<int>::iterator it;
+	std::vector<int>::iterator prev;
 
-		int minSpan = std::numeric_limits<int>::max();
-		std::sort(numbers.begin(), numbers.end());
-		for(it = numbers.begin() + 1; it != numbers.end(); it++)
-		{
-			prev = it - 1;
-			int span = *it - *prev;
-			if(span < minSpan)
-				minSpan = span;
-		}
-		return minSpan;
-	}
-	catch(const std::exception& e)
+	int minSpan = std::numeric_limits<int>::max();
+	std::sort(numbers.begin(), numbers.end());
+	for(it = numbers.begin() + 1; it != numbers.end(); it++)
 	{
-		std::cerr << e.what() << '\n';
+		prev = it - 1;
+		int span = *it - *prev;
+		if(span < minSpan)
+			minSpan = span;
 	}
-	return 0;//??
+	return minSpan;
 }
 
 int Span::longestSpan()
 {
-	try
-	{
-		if(numbers.size() < 2)
-			throw std::logic_error("Not enough numbers to find a span.");
-		std::vector<int>::iterator _max = std::max_element(numbers.begin(), numbers.end());
-		std::vector<int>::iterator _min = std::min_element(numbers.begin(), numbers.end());
-		return *_max - *_min;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-
-	return 0;
-	
+	if(numbers.size() < 2)
+		throw std::logic_error("Not enough numbers to find a span.");
+	std::vector<int>::iterator _max = std::max_element(numbers.begin(), numbers.end());
+	std::vector<int>::iterator _min = std::min_element(numbers.begin(), numbers.end());
+	return *_max - *_min;
 }
 
 Span::~Span()

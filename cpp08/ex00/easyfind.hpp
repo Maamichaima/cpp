@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EASYFIND_HPP
+#define EASYFIND_HPP
 
 #include <iostream>
 #include <vector>
@@ -13,3 +14,5 @@ typename T::iterator easyfind(T &t, int x)
 		throw(std::runtime_error("Element not found"));
 	return it;
 }
+
+#endif
