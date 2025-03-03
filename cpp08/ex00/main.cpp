@@ -1,5 +1,4 @@
 #include "easyfind.hpp"
-
 int main()
 {
 	std::vector<int> v;
@@ -8,6 +7,7 @@ int main()
 	v.push_back(8);
 	v.push_back(1);
 	v.push_back(20);
+
 	try
     {
         std::vector<int>::iterator x = easyfind(v, 8);
@@ -17,5 +17,4 @@ int main()
     {
         std::cerr << "Error: " << e.what() << std::endl;
     }
-    
 }

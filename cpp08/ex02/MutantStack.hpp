@@ -14,7 +14,7 @@ class MutantStack : public std::stack<T, Container>
         typedef typename Container::iterator iterator;
         MutantStack();
         MutantStack(const MutantStack& other);
-        // operator
+        // MutantStack operator=(const MutantStack& other);
         ~MutantStack();
         bool empty() const;
         size_t size() const;
@@ -59,6 +59,16 @@ inline MutantStack<T, Container>::MutantStack(const MutantStack &other)
 {
     (void)other;
 }
+
+// template <typename T, typename Container>
+// MutantStack MutantStack<T, Container>::operator=(const MutantStack &other)
+// {
+//     if(this != &other)
+//     {
+//         this->x = other.x;
+//     }
+//     return (*this);
+// }
 
 template <typename T, typename Container>
 MutantStack<T, Container>::~MutantStack()

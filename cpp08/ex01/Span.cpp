@@ -27,19 +27,17 @@ Span &Span::operator=(const Span &s)
 
 void Span::addNumber(int n)
 {
-	try
-	{
-		if(numbers.size() >= this->n)
-			throw std::out_of_range("Span is full. Cannot add more numbers.");
-		this->numbers.insert(this->numbers.end(), n);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	
+	if(numbers.size() >= this->n)
+		throw std::out_of_range("Span is full. Cannot add more numbers.");
+	this->numbers.insert(this->numbers.end(), n);
 }
 
+void Span::addNumbers(std::vector<int>::iterator start, std::vector<int>::iterator end, int ss)
+{
+	if(ss + numbers.size() > n)
+		throw std::out_of_range("Span is full. Cannot add more numbers.");
+	numbers.insert(numbers.end(), start, end);
+}
 
 // add another function for addNumberssssssss
 
