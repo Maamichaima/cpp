@@ -4,6 +4,15 @@
 #include <sstream>
 // void searsh_map()
 
+void trim(std::string& str, const std::string tr)
+{
+    size_t first = str.find_first_not_of(tr);
+    size_t last = str.find_last_not_of(tr);
+    if (first == std::string::npos || last == std::string::npos)
+        return ;
+    str = str.substr(first, last - first + 1);
+}
+
 std::map<int, std::string> split(const std::string& str, char delimiter){
     std::map<int, std::string> result;
     std::stringstream ss(str);
@@ -64,10 +73,10 @@ int is_number(std::string str)
     for(i = 0; str[i]; i++)
     {
         if(!isalnum(str[i]) && str[i] != '.')
-            return 0;
+            throw std::runtime_error("Error: not a number");
     }
     if(count_char(str, '.') > 1)
-        return 0;
+		throw std::runtime_error("Error: not a number");
     return 1;
 }
 
@@ -89,7 +98,7 @@ int check_key(std::string str)
     long int m, j, y;
     int count = 0;
     struct tm tm = {0};
-    // 2003
+
     if(strptime(str.c_str(), "%Y-%m-%d", &tm))
     {
         y = tm.tm_year + 1900;
@@ -108,62 +117,53 @@ int check_key(std::string str)
 
 int check_value(std::string str)
 {
-    if (!is_number(str))
-        return 0;
+    if (is_number(str))
+	{
+		if(atof(str.c_str()) < 0)
+			throw std::runtime_error("Error: not a positive number.");
+		else if(atof(str.c_str()) > 2147483647)
+			throw std::runtime_error("Error: too large a number.");
+	}
     return 1;
 }
 int parce_line(std::string str)
 {
-    // std::string line;
     std::map<int, std::string> t;
-    // std::ifstream file(str);
-    // std::map<std::string, std::string> ff;
-    // std::getline(file, line);
-    // if(line != "date | value")
-    // {
-    //     //yhrow exeption 
-    //     return 0;
-    // }
-    // while(std::getline(file, line))
-    // {
-        if(count_char(str, '|') != 1)
-            return 0;
-        t = split(str, ' ');// b |
-        if(!check_key((t[0])))
-            return 0;
-        if(!check_value(t[1]))
-            return 0;
-    //     break;
-    // }
+	if(count_char(str, '|') != 1)
+		throw std::runtime_error("Error: bad input => " + str);
+	t = split(str, '|');
+	trim(t[0], " ");
+	trim(t[1], " ");
+	if(!check_key((t[0])))
+		throw std::runtime_error("Error: bad input => " + str);
+	if(!check_value(t[1]))
+		return 0;
     return 1;
 }
 
-void search(std::string file_name, std::map<std::string, std::string> data)
+void search(std::string file_name, std::map<std::string, double> data)
 {
     std::string line;
     std::ifstream file(file_name);
     std::map<int, std::string> t;
+    std::map<std::string, double>::iterator it;
     // check lbdya
     std::getline(file, line);
     if(line != "date | value")
     {
-        //yhrow exeption 
-        // return 0;
+        throw std::runtime_error("Error: invalid file format");
     }
     while(std::getline(file, line))
     {
         try
         {
-            if(parce_line(line))
-            {
-            std::cout <<" hhh";
-            }
-            else
-            {
-                t = split(line, ' ');
-                // printi msg
-                std::cout << data[t[0]] << "\n";
-            }
+            parce_line(line);
+			t = split(line, '|');
+			trim(t[0], " ");
+			it = data.lower_bound(t[0]);
+			// it--;
+			if(it != data.end())
+				std::cout << t[0] << " => " << t[1] << " = " << it->second * atof(t[1].c_str()) << std::endl;// * atoi(t[1].c_str())
         }
         catch(const std::exception& e)
         {
@@ -174,33 +174,19 @@ void search(std::string file_name, std::map<std::string, std::string> data)
 
 int main(int arc, char **arv)
 {
-    // if(arc != 2)
-    //     exit(1);
+    if(arc != 2)
+        exit(1);
     
-    std::map<std::string, std::string> data;
+    std::map<std::string, double> data;
     std::map<std::string, std::string> ff;
-    std::ifstream data_file("data.csv");//check if is open
+    std::ifstream data_file("data.csv");
 
     std::string line;
-    std::string key;
-    std::string value;
 
     while(std::getline(data_file, line))
     {
-        // std::cout << data[line.substr(0, 9)] << line.substr(0, 9) << "\n";
-        data[line.substr(0, 10)] = line.substr(11);
+        data[line.substr(0, 10)] = atof(line.substr(11).c_str());
     }
     search(arv[1], data);
-    // std::map<std::string, std::string>::iterator it = data.find("2011-03-08");
-    // std::cout << "Key: " << it->first
-    //      << ", Value: " << it->second << std::endl;
-    // std::cout << parce_file(arv[1]);
-    // std::map<std::string, std::string>::iterator it = data.begin();
-
-    // // Iterate through the map and print the elements
-    // while (it != data.end()) {
-    //     std::cout << "Key: " << it->first
-    //          << ", Value: " << it->second << std::endl;
-    //     ++it;
-    // }
+    
 }
