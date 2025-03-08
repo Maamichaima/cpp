@@ -160,7 +160,7 @@ void search(std::string file_name, std::map<std::string, double> data)
             parce_line(line);
 			t = split(line, '|');
 			trim(t[0], " ");
-			it = data.lower_bound(t[0]);
+			it = data.upper_bound(t[0]);
 			// it--;
 			if(it != data.end())
 				std::cout << t[0] << " => " << t[1] << " = " << it->second * atof(t[1].c_str()) << std::endl;// * atoi(t[1].c_str())
