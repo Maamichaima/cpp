@@ -151,17 +151,17 @@ void check_edit_v(std::vector<std::pair<int, int> > &x, std::vector<std::pair<in
     }
 }
 
-void merg_sort_v(std::vector<std::pair<int, int> > &x, int i_start, int i_end)//  1 2 3 4
+void merg_sort_v(std::vector<std::pair<int, int> > &x, int i_start, int i_end)
 {
-	int mid = i_start + ;
+	int mid = i_start + (i_end - i_start) / 2;
 	if(i_start >= i_end)
 		return ;
-	// std::vector<std::pair<int, int> > left, right;
-	// left = get_part_v(x, i_start, mid);
-	// right = get_part_v(x, mid + 1, i_end);
-	// merg_sort_v(left, 0, left.size() -1);
-	// merg_sort_v(right, 0, right.size() - 1);
-	// check_edit_v(x, left, right);
+	std::vector<std::pair<int, int> > left, right;
+	left = get_part_v(x, i_start, mid);
+	right = get_part_v(x, mid + 1, i_end);
+	merg_sort_v(left, 0, left.size() -1);
+	merg_sort_v(right, 0, right.size() - 1);
+	check_edit_v(x, left, right);
 }
 
 std::vector<int> get_JacobsthalSequence_v(int max)
