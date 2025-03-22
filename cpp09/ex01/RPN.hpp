@@ -6,4 +6,8 @@
 #include <fstream>
 #include <sstream>
 
+
+int calcul(std::stack<std::string> &arg);
+std::stack<std::string> split(const std::string& str, char delimiter);
+
 #endif

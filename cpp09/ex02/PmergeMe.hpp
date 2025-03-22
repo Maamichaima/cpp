@@ -1,5 +1,9 @@
+#ifndef PMERGEME_HPP
+#define PMERGEME_HPP
+
 #include <iostream>
 #include <set>
+#include <ctime>
 
 class PmergeMe
 {
@@ -7,9 +11,13 @@ class PmergeMe
 	public:
 		std::vector<int> vc;
 		std::deque<int> dq;
+		std::vector<std::string> v_str;
+		std::deque<std::string> d_str;
 		PmergeMe();
 		// PmergeMe();
-		PmergeMe(std::string arg);
+		PmergeMe(char **arg);
+		void setVector();
+		void setDeque();
 		void sort(std::vector<int> vc);
 		void sort(std::deque<int> dq);
 		~PmergeMe();
@@ -21,3 +29,5 @@ std::vector<std::pair<int, int> > makePairs_v(std::vector<int> numbers);
 std::deque<std::pair<int, int> > makePairs_d(std::deque<int> numbers);
 std::deque<int> sort_d(std::deque<std::pair<int, int> > x);
 void print_int_d(std::deque<int> x);
+
+#endif

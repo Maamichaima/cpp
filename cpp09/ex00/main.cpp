@@ -2,8 +2,6 @@
 #include <map>
 #include <fstream>
 #include <sstream>
-// void searsh_map()
-
 // case one , date |value
 // case two , february 29 2021
 

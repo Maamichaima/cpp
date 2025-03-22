@@ -23,6 +23,7 @@ void print_d(std::deque<std::pair<int, int > > x)
 	{
         std::cout << "[" << it->first << ", " << it->second << "] ";
     }
+	std::cout << "\n";
 }
 
 void print_int_d(std::deque<int> x)
@@ -34,15 +35,39 @@ void print_int_d(std::deque<int> x)
     }
 }
 
+int is_dalid(std::string c)
+{
+	int i = 0;
+
+	if(c[i] == '+' || c[i] =='-')
+		i++;
+	if(!c[i])
+		return 0;
+	while(c[i])
+	{
+		if(!isdigit(c[i]))
+		{
+			return 0;
+		}
+		i++;
+	}
+	return 1;
+}
+
 std::deque<int> string_to_int_d(std::deque<std::string> str)
 {
 	std::deque<int> num;
+	double n;
 	int i = 0;
 
 	while(i < str.size())
 	{
-		//check and trow exepltion
-		num.push_back(atoi(str[i].c_str()));
+		if(!is_dalid(str[i]))
+			throw std::runtime_error("pas un num");
+		n = atof(str[i].c_str());
+		if(n < 0 )
+			throw std::runtime_error("negative");
+		num.push_back(n);
 		i++;
 	}
 	return num;
@@ -79,13 +104,15 @@ std::deque<int> make_sequence_d(std::deque<std::pair<int, int> > x, std::string 
 		return largest;
 }
 
-std::deque<std::pair<int, int> > get_part_d(std::deque<std::pair<int, int> > x, int start, int end)
+std::deque<std::pair<int, int> > get_part_d(std::deque<std::pair<int, int> > x, int start, int size)
 {
 	std::deque<std::pair<int, int> > sub;
 	
-	for(int i = start; i <= end; i++)
+	for(int i = start; i < x.size(); i++)
 	{
 		sub.push_back(x[i]);
+		if (sub.size() == size)
+			break ;
 	}
 	return sub;
 }
@@ -120,24 +147,45 @@ void check_edit_d(std::deque<std::pair<int, int> > &x, std::deque<std::pair<int,
 		}
 		k++;
 	}
-    while (i < left.size()) {
-        x[k++] = left[i++];
-    }// machi daroriii
-    while (j < right.size()) {
-        x[k++] = right[j++];
-    }
+    while (i < left.size())
+	{
+		x[k++] = left[i++];
+	}
+	while (j < right.size())
+	{
+		x[k++] = right[j++];
+	}
 }
 
-void merg_sort_d(std::deque<std::pair<int, int> > &x, int i_start, int i_end)
+void insertionSort(std::deque<std::pair<int, int> > & arr, int n)
 {
-	int mid = i_start + (i_end - i_start) / 2;
-	if(i_start >= i_end)
+	for (int i = 1; i < n; ++i) {
+		std::pair<int, int> key = arr[i];
+		int j = i - 1;
+		while (j >= 0 && arr[j].first > key.first) {
+			arr[j + 1] = arr[j];
+			j = j - 1;
+		}
+		arr[j + 1] = key;
+	}
+}
+
+void merg_sort_d(std::deque<std::pair<int, int> > &x)
+{
+	if(x.size() <= 3)
+	{
+		insertionSort(x, x.size());
 		return ;
+	}
 	std::deque<std::pair<int, int> > left, right;
-	left = get_part_d(x, i_start, mid);
-	right = get_part_d(x, mid + 1, i_end);
-	merg_sort_d(left, 0, left.size() -1);
-	merg_sort_d(right, 0, right.size() - 1);
+	left = get_part_d(x, 0, 3);
+	insertionSort(left, 3);
+	right = get_part_d(x, left.size(), x.size() - left.size());
+	merg_sort_d(right);
+	// std::cout << "----left-----\n";
+	// print_d(left);
+	// std::cout << "----right-----\n";
+	// print_d(right);
 	check_edit_d(x, left, right);
 }
 
@@ -164,7 +212,6 @@ std::deque<int> get_JacobsthalSequence_d(int max)
 int getIndex_d(std::deque<int> largest, int x)
 {
 	int mid;
-	// print_int_d(largest);
 	if(largest.size() < 3)
 	{
 		int index = 0;
@@ -185,7 +232,6 @@ int getIndex_d(std::deque<int> largest, int x)
 			else if(x <= largest[0])
 				index = 0;
 		}
-		// std::cout <<index << "\n";
 		return index ;
 	}
 	mid = largest.size() / 2;
@@ -194,7 +240,6 @@ int getIndex_d(std::deque<int> largest, int x)
 	else
 		return (getIndex_d(get_sub_d(largest, 0, mid - 1), x));
 }
-
 
 void search_stock_d(std::deque<int> &largest, std::deque<int> lowset, std::deque<int> sq)
 {
@@ -206,16 +251,13 @@ void search_stock_d(std::deque<int> &largest, std::deque<int> lowset, std::deque
 	end = 0;
 	while(i_sq <= sq.size())
 	{
-		// std::cout << "i_sq -- > " << i_sq << "\n";
 		start = sq[i_sq];
 		while(start > end)
 		{
 			if(start <= lowset.size())
 			{
-				// std::cout << "\n" << "" << lowset[start - 1] << " index --> " << start - 1 << "\n";
 				index = getIndex_d(largest, lowset[start - 1]);
 				largest.insert(largest.begin() + index, lowset[start - 1]);
-				// print_int_d(largest);
 			}
 			start--;
 		}
@@ -226,20 +268,13 @@ void search_stock_d(std::deque<int> &largest, std::deque<int> lowset, std::deque
 
 std::deque<int> sort_d(std::deque<std::pair<int, int> > x)
 {
-	merg_sort_d(x, 0, x.size() - 1);
-	// std::cout << "\n-----------------pairs sort------------------\n";
-	// print_d(x);
-	// std::cout << "\n---------------------------------------------\n";
+	merg_sort_d(x);
+
 	std::deque<int> largest = make_sequence_d(x, "largest");
 	std::deque<int> lowest = make_sequence_d(x, "lowest");
-	// std::cout << "\n-----------------------largset-----------------------\n";
-	// print_int_d(largest);
-	// std::cout << "\n-----------------------lowest-----------------------\n";
-	// print_int_d(lowest);
-	// std::cout << "\n----------------------------------------------\n";
+
 	std::deque<int> sq = get_JacobsthalSequence_d(largest.size() - 1);
 	// print_int_d(sq);
-	// Binary search
 	search_stock_d(largest, lowest, sq);
 	return largest;
 }

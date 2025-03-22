@@ -23,6 +23,7 @@ void print_v(std::vector<std::pair<int, int > > x)
 	{
         std::cout << "[" << it->first << ", " << it->second << "] ";
     }
+	std::cout << "\n";
 }
 
 void print_int_v(std::vector<int> x)
@@ -40,6 +41,8 @@ int is_valid(std::string c)
 
 	if(c[i] == '+' || c[i] =='-')
 		i++;
+	if(!c[i])
+		return 0;
 	while(c[i])
 	{
 		if(!isdigit(c[i]))
@@ -59,11 +62,10 @@ std::vector<int> string_to_int_v(std::vector<std::string> str)
 
 	while(i < str.size())
 	{
-		//check and trow exepltion
 		if(!is_valid(str[i]))
 			throw std::runtime_error("pas un num");
 		n = atof(str[i].c_str());
-		if(n < 0 )//|| n > 21)
+		if(n < 0 )
 			throw std::runtime_error("negative");
 		num.push_back(n);
 		i++;
@@ -102,13 +104,15 @@ std::vector<int> make_sequence_v(std::vector<std::pair<int, int> > x, std::strin
 		return largest;
 }
 
-std::vector<std::pair<int, int> > get_part_v(std::vector<std::pair<int, int> > x, int start, int end)
+std::vector<std::pair<int, int> > get_part_v(std::vector<std::pair<int, int> > x, int start, int size)
 {
 	std::vector<std::pair<int, int> > sub;
 	
-	for(int i = start; i <= end; i++)
+	for(int i = start; i < x.size(); i++)
 	{
 		sub.push_back(x[i]);
+		if (sub.size() == size)
+			break ;
 	}
 	return sub;
 }
@@ -143,24 +147,45 @@ void check_edit_v(std::vector<std::pair<int, int> > &x, std::vector<std::pair<in
 		}
 		k++;
 	}
-    while (i < left.size()) {
-        x[k++] = left[i++];
-    }// machi daroriii
-    while (j < right.size()) {
-        x[k++] = right[j++];
-    }
+    while (i < left.size())
+	{
+		x[k++] = left[i++];
+	}
+	while (j < right.size())
+	{
+		x[k++] = right[j++];
+	}
 }
 
-void merg_sort_v(std::vector<std::pair<int, int> > &x, int i_start, int i_end)
+void insertionSort(std::vector<std::pair<int, int> > & arr, int n)
 {
-	int mid = i_start + (i_end - i_start) / 2;
-	if(i_start >= i_end)
+	for (int i = 1; i < n; ++i) {
+		std::pair<int, int> key = arr[i];
+		int j = i - 1;
+		while (j >= 0 && arr[j].first > key.first) {
+			arr[j + 1] = arr[j];
+			j = j - 1;
+		}
+		arr[j + 1] = key;
+	}
+}
+
+void merg_sort_v(std::vector<std::pair<int, int> > &x)
+{
+	if(x.size() <= 3)
+	{
+		insertionSort(x, x.size());
 		return ;
+	}
 	std::vector<std::pair<int, int> > left, right;
-	left = get_part_v(x, i_start, mid);
-	right = get_part_v(x, mid + 1, i_end);
-	merg_sort_v(left, 0, left.size() -1);
-	merg_sort_v(right, 0, right.size() - 1);
+	left = get_part_v(x, 0, 3);
+	insertionSort(left, 3);
+	right = get_part_v(x, left.size(), x.size() - left.size());
+	merg_sort_v(right);
+	// std::cout << "----left-----\n";
+	// print_v(left);
+	// std::cout << "----right-----\n";
+	// print_v(right);
 	check_edit_v(x, left, right);
 }
 
@@ -187,7 +212,6 @@ std::vector<int> get_JacobsthalSequence_v(int max)
 int getIndex_v(std::vector<int> largest, int x)
 {
 	int mid;
-	// print_int_v(largest);
 	if(largest.size() < 3)
 	{
 		int index = 0;
@@ -208,7 +232,6 @@ int getIndex_v(std::vector<int> largest, int x)
 			else if(x <= largest[0])
 				index = 0;
 		}
-		// std::cout <<index << "\n";
 		return index ;
 	}
 	mid = largest.size() / 2;
@@ -217,7 +240,6 @@ int getIndex_v(std::vector<int> largest, int x)
 	else
 		return (getIndex_v(get_sub_v(largest, 0, mid - 1), x));
 }
-
 
 void search_stock_v(std::vector<int> &largest, std::vector<int> lowset, std::vector<int> sq)
 {
@@ -229,16 +251,13 @@ void search_stock_v(std::vector<int> &largest, std::vector<int> lowset, std::vec
 	end = 0;
 	while(i_sq <= sq.size())
 	{
-		// std::cout << "i_sq -- > " << i_sq << "\n";
 		start = sq[i_sq];
 		while(start > end)
 		{
 			if(start <= lowset.size())
 			{
-				// std::cout << "\n" << "" << lowset[start - 1] << " index --> " << start - 1 << "\n";
 				index = getIndex_v(largest, lowset[start - 1]);
 				largest.insert(largest.begin() + index, lowset[start - 1]);
-				// print_int_v(largest);
 			}
 			start--;
 		}
@@ -249,34 +268,36 @@ void search_stock_v(std::vector<int> &largest, std::vector<int> lowset, std::vec
 
 std::vector<int> sort_v(std::vector<std::pair<int, int> > x)
 {
-	merg_sort_v(x, 0, x.size() - 1);
-	exit (0);
-	// std::cout << "\n-----------------pairs sort------------------\n";
-	// print_v(x);
-	// std::cout << "\n---------------------------------------------\n";
+	merg_sort_v(x);
+
 	std::vector<int> largest = make_sequence_v(x, "largest");
 	std::vector<int> lowest = make_sequence_v(x, "lowest");
-	// std::cout << "\n-----------------------largset-----------------------\n";
-	// print_int_v(largest);
-	// std::cout << "\n-----------------------lowest-----------------------\n";
-	// print_int_v(lowest);
-	// std::cout << "\n----------------------------------------------\n";
+
 	std::vector<int> sq = get_JacobsthalSequence_v(largest.size() - 1);
 	// print_int_v(sq);
-	// Binary search
 	search_stock_v(largest, lowest, sq);
 	return largest;
 }
 
-PmergeMe::PmergeMe(std::string arg)
+PmergeMe::PmergeMe(char **arg)
 {
-	std::vector<int> vc;
-	std::deque<int> dq;
+	int i = 1;
 
-	vc = string_to_int_v(split_v(arg, ' '));
-	dq = string_to_int_d(split_d(arg, ' '));
-	this->dq = dq;
-	this->vc = vc;
+	while(arg[i])
+	{
+		v_str.push_back(arg[i]);
+		d_str.push_back(arg[i]);
+		i++;
+	}
+}
+
+void PmergeMe::setVector()
+{
+	this->vc = string_to_int_v(v_str);
+}
+void PmergeMe::setDeque()
+{
+	this->dq = string_to_int_d(d_str);
 }
 
 void PmergeMe::sort(std::vector<int> vc)
@@ -284,7 +305,6 @@ void PmergeMe::sort(std::vector<int> vc)
 	std::vector<std::pair<int, int> > pairs;
 
 	pairs = makePairs_v(vc);
-
 	this->vc = sort_v(pairs);
 }
 
@@ -299,17 +319,19 @@ void PmergeMe::sort(std::deque<int> dq)
 
 int main(int ac, char **av)
 {
-	if (ac < 2) {
-		std::cerr << "entrer <numbers>" << std::endl;
-        return 1;
-    }
 	try
 	{
-		PmergeMe nb(av[1]);
+		PmergeMe nb(av);
 		std::cout <<"-----------vector-------------\n";
-		nb.sort(nb.vc);
+        clock_t start_vector = clock();
+		nb.setVector();
+        nb.sort(nb.vc);
+        clock_t end_vector = clock();
+        double duration_vector = static_cast<double>(end_vector - start_vector) / CLOCKS_PER_SEC;
+		std::cout << "Time to process a range of " << nb.vc.size() << " elements with std::[..] " <<  duration_vector << " us\n";
 		print_int_v(nb.vc);
 		std::cout <<"\n-----------deque-------------\n";
+		nb.setDeque();
 		nb.sort(nb.dq);
 		print_int_d(nb.dq);
 	}
@@ -317,7 +339,5 @@ int main(int ac, char **av)
 	{
 		std::cerr << e.what() << '\n';
 	}
-	
-
     return 0;
 }
