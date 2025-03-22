@@ -4,7 +4,7 @@
 #include <iostream>
 #include <utility>
 
-std::vector<std::string> split(const std::string& str, char delimiter){
+std::vector<std::string> split_v(const std::string& str, char delimiter){
     std::vector<std::string> result;
     std::stringstream ss(str);
     std::string item;
@@ -17,7 +17,7 @@ std::vector<std::string> split(const std::string& str, char delimiter){
     }
     return result;
 }
-void print(std::vector<std::pair<int, int > > x)
+void print_v(std::vector<std::pair<int, int > > x)
 {
 	for (std::vector<std::pair<int, int> >::iterator it = x.begin(); it != x.end(); ++it)
 	{
@@ -25,7 +25,7 @@ void print(std::vector<std::pair<int, int > > x)
     }
 }
 
-void print_int(std::vector<int> x)
+void print_int_v(std::vector<int> x)
 {
 	std::cout << std::endl;
 	for (std::vector<int>::iterator it = x.begin(); it != x.end(); ++it)
@@ -33,25 +33,48 @@ void print_int(std::vector<int> x)
         std::cout << "[" << *it << "] ";
     }
 }
-std::vector<int> string_to_int(std::vector<std::string> str)
+
+int is_valid(std::string c)
+{
+	int i = 0;
+
+	if(c[i] == '+' || c[i] =='-')
+		i++;
+	while(c[i])
+	{
+		if(!isdigit(c[i]))
+		{
+			return 0;
+		}
+		i++;
+	}
+	return 1;
+}
+
+std::vector<int> string_to_int_v(std::vector<std::string> str)
 {
 	std::vector<int> num;
+	double n;
 	int i = 0;
 
 	while(i < str.size())
 	{
-		num.push_back(atoi(str[i].c_str()));
+		//check and trow exepltion
+		if(!is_valid(str[i]))
+			throw std::runtime_error("pas un num");
+		n = atof(str[i].c_str());
+		if(n < 0 )//|| n > 21)
+			throw std::runtime_error("negative");
+		num.push_back(n);
 		i++;
 	}
 	return num;
 }
-
-std::vector<std::pair<int, int> > makePairs(std::string arg)
+// done
+std::vector<std::pair<int, int> > makePairs_v(std::vector<int> numbers)
 {
-	std::vector<int> numbers;
     std::vector<std::pair<int, int> > x;
 
-	numbers = string_to_int(split(arg, ' '));
 	for(int i = 0; i < numbers.size(); i += 2)
 	{
 		if(i + 1 >= numbers.size())
@@ -64,7 +87,7 @@ std::vector<std::pair<int, int> > makePairs(std::string arg)
 	return x;
 }
 
-std::vector<int> make_sequence(std::vector<std::pair<int, int> > x, std::string str)
+std::vector<int> make_sequence_v(std::vector<std::pair<int, int> > x, std::string str)
 {
 	std::vector<int> largest, lowest;
 
@@ -72,14 +95,14 @@ std::vector<int> make_sequence(std::vector<std::pair<int, int> > x, std::string 
 	{
 		largest.push_back(it->first);
 		lowest.push_back(it->second);
-		// std::cout << it->first << "  " << it->second;
 	}
 	if(str == "lowest")
 		return lowest;
 	else
 		return largest;
 }
-std::vector<std::pair<int, int> > get_part(std::vector<std::pair<int, int> > x, int start, int end)
+
+std::vector<std::pair<int, int> > get_part_v(std::vector<std::pair<int, int> > x, int start, int end)
 {
 	std::vector<std::pair<int, int> > sub;
 	
@@ -90,7 +113,7 @@ std::vector<std::pair<int, int> > get_part(std::vector<std::pair<int, int> > x, 
 	return sub;
 }
 
-std::vector<int> get_sub(std::vector<int> x, int start, int end)
+std::vector<int> get_sub_v(std::vector<int> x, int start, int end)
 {
 	std::vector<int> sub;
 	
@@ -101,7 +124,7 @@ std::vector<int> get_sub(std::vector<int> x, int start, int end)
 	return sub;
 }
 
-void check_edit(std::vector<std::pair<int, int> > &x, std::vector<std::pair<int, int> > &left, std::vector<std::pair<int, int> > &right)
+void check_edit_v(std::vector<std::pair<int, int> > &x, std::vector<std::pair<int, int> > &left, std::vector<std::pair<int, int> > &right)
 {
 	int i = 0;
 	int j = 0;
@@ -128,73 +151,46 @@ void check_edit(std::vector<std::pair<int, int> > &x, std::vector<std::pair<int,
     }
 }
 
-void merg_sort(std::vector<std::pair<int, int> > &x, int i_start, int i_end)
+void merg_sort_v(std::vector<std::pair<int, int> > &x, int i_start, int i_end)//  1 2 3 4
 {
-	int mid = i_start + (i_end - i_start) / 2;
+	int mid = i_start + ;
 	if(i_start >= i_end)
-	{
 		return ;
-	}
-	std::vector<std::pair<int, int> > left, right;
-	left = get_part(x, i_start, mid);
-	right = get_part(x, mid + 1, i_end);
-	// std::cout << "\n----------9beel-----------\n";
-	// print(x);
-	// std::cout << "\n---------------------\n";
-	merg_sort(left, 0, left.size() -1);
-	merg_sort(right, 0, right.size() - 1);
-	// std::cout << "\n----------soort-----------\n";
-	check_edit(x, left, right);
-	// print(x);
-	// std::cout << "left --> " ;
-	// print(left);
-	// std::cout << "right --> " ;
-	// print(right);
+	// std::vector<std::pair<int, int> > left, right;
+	// left = get_part_v(x, i_start, mid);
+	// right = get_part_v(x, mid + 1, i_end);
+	// merg_sort_v(left, 0, left.size() -1);
+	// merg_sort_v(right, 0, right.size() - 1);
+	// check_edit_v(x, left, right);
 }
 
-void add_index(std::vector<int> &sq)
-{
-	int i = 0;
-	
-	for(i = 0; i < sq.size(); i++)
-	{
-		if(sq[i + 1] - sq[i] > 1)
-		{
-			sq.insert(sq.begin() + i + 1, sq[i] + 1);
-			i--;
-		}
-	}
-}
-
-std::vector<int> get_JacobsthalSequence(int max)
+std::vector<int> get_JacobsthalSequence_v(int max)
 {
 	int j = 2;
+	int found = 0;
 	std::vector<int> sq;
 	int nb = 0;
 	
 	sq.push_back(0);
 	sq.push_back(1);
-	
-	while(nb < max)
+	while(found == 0)
 	{
 		nb = sq[j - 1] + 2 * sq[j - 2];
+		if(nb > max)
+			found = 1;
 		sq.push_back(nb);
 		j++;
 	}
-	add_index(sq);
-	// std::cout << std::endl;
 	return sq;
 }
 
-int getIndex(std::vector<int> largest, int x)
+int getIndex_v(std::vector<int> largest, int x)
 {
 	int mid;
-	print_int(largest);
+	// print_int_v(largest);
 	if(largest.size() < 3)
 	{
-		// hbees
 		int index = 0;
-		// print_int(largest);
 		if(largest.size() == 1)
 		{
 			if(x > largest[0])
@@ -205,49 +201,101 @@ int getIndex(std::vector<int> largest, int x)
 		}
 		else
 		{
-			if(x > largest[1] && x > largest[0])
+			if(x > largest[1] && x >= largest[0])
 				index = 2;
-			else if(x > largest[0] && x < largest[1])
+			else if(x >= largest[0] && x <= largest[1])
 				index = 1;
-			else if(x < largest[0])
+			else if(x <= largest[0])
 				index = 0;
 		}
+		// std::cout <<index << "\n";
 		return index ;
 	}
 	mid = largest.size() / 2;
 	if(largest[mid] < x)
-	{
-		return (mid + getIndex(get_sub(largest, mid, largest.size() - 1), x));
-	}
+		return (mid + getIndex_v(get_sub_v(largest, mid, largest.size() - 1), x));
 	else
-	{
-		return (getIndex(get_sub(largest, 0, mid - 1), x));
-	}
-	// return 0;
+		return (getIndex_v(get_sub_v(largest, 0, mid - 1), x));
 }
 
-void search_stock(std::vector<int> &largest, std::vector<int> lowset, std::vector<int> sq)
+
+void search_stock_v(std::vector<int> &largest, std::vector<int> lowset, std::vector<int> sq)
 {
 	int i = 0;
 	int index;
 
-	//push lwel
-	largest.insert(largest.begin(), lowset[0]);
-	// lowset.pop_back();
-	// print_int(largest);
-	// print_int(lowset);
-	for(i = 2; i < sq.size(); i++)
+	int i_sq = 0;
+	int start, end;
+	end = 0;
+	while(i_sq <= sq.size())
 	{
-		// print(sq[i]);
-		index = getIndex(largest, lowset[sq[i]]);
-		// if(index != 0)
-		// 	index--;
-		largest.insert(largest.begin() + index, lowset[sq[i]]);
-		std::cout << "\n" << "" << lowset[sq[i]] << " index --> " << index << "\n";
-		print_int(largest);
+		// std::cout << "i_sq -- > " << i_sq << "\n";
+		start = sq[i_sq];
+		while(start > end)
+		{
+			if(start <= lowset.size())
+			{
+				// std::cout << "\n" << "" << lowset[start - 1] << " index --> " << start - 1 << "\n";
+				index = getIndex_v(largest, lowset[start - 1]);
+				largest.insert(largest.begin() + index, lowset[start - 1]);
+				// print_int_v(largest);
+			}
+			start--;
+		}
+		end = sq[i_sq];
+		i_sq++;
 	}
 }
 
+std::vector<int> sort_v(std::vector<std::pair<int, int> > x)
+{
+	merg_sort_v(x, 0, x.size() - 1);
+	exit (0);
+	// std::cout << "\n-----------------pairs sort------------------\n";
+	// print_v(x);
+	// std::cout << "\n---------------------------------------------\n";
+	std::vector<int> largest = make_sequence_v(x, "largest");
+	std::vector<int> lowest = make_sequence_v(x, "lowest");
+	// std::cout << "\n-----------------------largset-----------------------\n";
+	// print_int_v(largest);
+	// std::cout << "\n-----------------------lowest-----------------------\n";
+	// print_int_v(lowest);
+	// std::cout << "\n----------------------------------------------\n";
+	std::vector<int> sq = get_JacobsthalSequence_v(largest.size() - 1);
+	// print_int_v(sq);
+	// Binary search
+	search_stock_v(largest, lowest, sq);
+	return largest;
+}
+
+PmergeMe::PmergeMe(std::string arg)
+{
+	std::vector<int> vc;
+	std::deque<int> dq;
+
+	vc = string_to_int_v(split_v(arg, ' '));
+	dq = string_to_int_d(split_d(arg, ' '));
+	this->dq = dq;
+	this->vc = vc;
+}
+
+void PmergeMe::sort(std::vector<int> vc)
+{
+	std::vector<std::pair<int, int> > pairs;
+
+	pairs = makePairs_v(vc);
+
+	this->vc = sort_v(pairs);
+}
+
+void PmergeMe::sort(std::deque<int> dq)
+{
+	std::deque<std::pair<int, int> > pairs;
+
+	pairs = makePairs_d(dq);
+
+	this->dq = sort_d(pairs);
+}
 
 int main(int ac, char **av)
 {
@@ -255,37 +303,21 @@ int main(int ac, char **av)
 		std::cerr << "entrer <numbers>" << std::endl;
         return 1;
     }
-	
-    std::vector<std::pair<int, int> > x = makePairs(av[1]);
-
-	merg_sort(x, 0, x.size() - 1);
-	std::cout << "\n-----------------------------------\n";
-	print(x);
-	std::cout << "\n-----------------------------------\n";
-	std::vector<int> largest = make_sequence(x, "largest");
-	std::vector<int> lowest = make_sequence(x, "lowest");
-	for(int i = 0; i < largest.size(); i++)
+	try
 	{
-		std::cout << largest[i] << "    "; 
+		PmergeMe nb(av[1]);
+		std::cout <<"-----------vector-------------\n";
+		nb.sort(nb.vc);
+		print_int_v(nb.vc);
+		std::cout <<"\n-----------deque-------------\n";
+		nb.sort(nb.dq);
+		print_int_d(nb.dq);
 	}
-	std::cout << "\n";
-	for(int i = 0; i < lowest.size(); i++)
+	catch(const std::exception& e)
 	{
-		std::cout << lowest[i] << "    ";
+		std::cerr << e.what() << '\n';
 	}
-	std::vector<int> sq = get_JacobsthalSequence(11);
-	// Binary search
-	search_stock(largest, lowest, sq);
-	// std::cout << x.size();
-	// print(x);
-	// std::cout << "\n";
-	// make_sequence(x);
 	
-	// int i = 0;
-	// for (std::vector<std::pair<int, int> >::iterator it = x.begin(); it != x.end(); ++it)
-	// {
-    //     std::cout << "[" << it->first << ", " << it->second << "] ";
-    // }
 
     return 0;
 }

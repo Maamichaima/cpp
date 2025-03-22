@@ -31,17 +31,13 @@ void print(std::stack<int> st)
 
 int is_operator(std::string str)
 {
+	if(str.size() != 1)
+		return 0;
 	if(str[0] == '+' || str[0] == '-' || str[0] == '/' || str[0] == '*')
 		return 1;
 	return 0;
 }
 
-int is_num(std::string str)
-{
-	if(!isnumber(str[0]))
-		return 0;
-	return 1;
-}
 
 int is_valid(std::string str)
 {
@@ -50,25 +46,46 @@ int is_valid(std::string str)
 	return 1;
 }
 
-int all_good(std::stack<std::string> arg)
+int is_digit(std::string str)
 {
-	while(!arg.empty())
+	int i = 0;
+	if(str[0] == '-' || str[i] == '+')
+		i++;
+	while (str[i])
 	{
-		if(arg.top().length() != 1 || !is_valid(arg.top()))
+		if(!isdigit(str[i]))
 			return 0;
-		arg.pop();
+		i++;
 	}
 	return 1;
 }
 
-int calcule_two_num(int left, int right, std::string opp)
+int is_num(std::string str)
+{
+	if(is_digit(str))
+	{
+		double nb = atof(str.c_str());
+		if(nb == 0 && str[0] != '0')
+			return 0;
+		else if(nb > 10)
+			return 0;
+		return 1;
+	}
+	return 0;
+}
+
+int calcul_two_num(int left, int right, std::string opp)
 {
 	if(opp == "+")
 		return left + right;
 	else if(opp == "-")
 		return right - left;
 	else if(opp == "/")
-		return left / right;
+	{
+		if(left == 0)
+			throw std::runtime_error("NAN");
+		return right / left;
+	}
 	else if(opp == "*")
 		return left * right;
 	return 0;
@@ -76,16 +93,15 @@ int calcule_two_num(int left, int right, std::string opp)
 
 int calcul(std::stack<std::string> &arg)
 {
-	int result = 0;
-	int left, right;
+	double result = 0;
+	double left, right;
 
-	std::stack<int> st;
-	std::stack<int> just_num;
+	std::stack<double> just_num;
 	while(!arg.empty())
 	{
 		if(is_num(arg.top()))
 		{
-			just_num.push(atoi(arg.top().c_str()));
+			just_num.push(atof(arg.top().c_str()));
 			result = just_num.top();
 		}
 		else if(is_operator(arg.top()) && just_num.size() >= 2)
@@ -94,7 +110,7 @@ int calcul(std::stack<std::string> &arg)
 			just_num.pop();
 			right = just_num.top();
 			just_num.pop();
-			result = calcule_two_num(left, right, arg.top());
+			result = calcul_two_num(left, right, arg.top());
 			just_num.push(result);
 		}
 		else
@@ -114,10 +130,8 @@ int main(int c, char **av)
 			throw std::runtime_error("ERROR");
 		std::stack<std::string> arg;
 		arg = split(av[1], ' ');
-		if(!all_good(arg))
-			throw std::runtime_error("ERROR");
 		int result = calcul(arg);
-		std::cout << result;
+		std::cout << "result --> " << result<< std::endl;
 	}
 	catch(const std::exception& e)
 	{

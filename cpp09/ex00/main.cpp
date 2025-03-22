@@ -4,6 +4,9 @@
 #include <sstream>
 // void searsh_map()
 
+// case one , date |value
+// case two , february 29 2021
+
 void trim(std::string& str, const std::string tr)
 {
     size_t first = str.find_first_not_of(tr);
@@ -67,15 +70,14 @@ int count_char(std::string str, char c)
 
 int is_number(std::string str)
 {
-    int i = 0;
     if(str[0] == '+' || str[0] == '-')// checck overflow
-        i++;
-    for(i = 0; str[i]; i++)
+		str.erase(0, 1);
+    for(int i = 0; str[i]; i++)
     {
         if(!isalnum(str[i]) && str[i] != '.')
             throw std::runtime_error("Error: not a number");
     }
-    if(count_char(str, '.') > 1)
+    if(count_char(str, '.') > 1 || str == ".")
 		throw std::runtime_error("Error: not a number");
     return 1;
 }
@@ -115,7 +117,7 @@ int check_key(std::string str)
 }
 
 
-int check_value(std::string str)
+void check_value(std::string str)
 {
     if (is_number(str))
 	{
@@ -124,21 +126,20 @@ int check_value(std::string str)
 		else if(atof(str.c_str()) > 2147483647)
 			throw std::runtime_error("Error: too large a number.");
 	}
-    return 1;
 }
-int parce_line(std::string str)
+void parce_line(std::string str)
 {
     std::map<int, std::string> t;
 	if(count_char(str, '|') != 1)
 		throw std::runtime_error("Error: bad input => " + str);
 	t = split(str, '|');
-	trim(t[0], " ");
-	trim(t[1], " ");
+	if (t.size() != 2)
+		throw std::runtime_error("Error: bad input => " + str);
+	trim(t[0], " \t");
+	trim(t[1], " \t");
 	if(!check_key((t[0])))
 		throw std::runtime_error("Error: bad input => " + str);
-	if(!check_value(t[1]))
-		return 0;
-    return 1;
+	check_value(t[1]);
 }
 
 void search(std::string file_name, std::map<std::string, double> data)
@@ -150,18 +151,16 @@ void search(std::string file_name, std::map<std::string, double> data)
     // check lbdya
     std::getline(file, line);
     if(line != "date | value")
-    {
         throw std::runtime_error("Error: invalid file format");
-    }
     while(std::getline(file, line))
     {
         try
         {
             parce_line(line);
 			t = split(line, '|');
-			trim(t[0], " ");
+			trim(t[0], " \t");
 			it = data.upper_bound(t[0]);
-			// it--;
+			// it--; // kifach katkhdem o trow exp ila mal9ach li sgher mnooo 
 			if(it != data.end())
 				std::cout << t[0] << " => " << t[1] << " = " << it->second * atof(t[1].c_str()) << std::endl;// * atoi(t[1].c_str())
         }
@@ -176,17 +175,24 @@ int main(int arc, char **arv)
 {
     if(arc != 2)
         exit(1);
-    
-    std::map<std::string, double> data;
-    std::map<std::string, std::string> ff;
-    std::ifstream data_file("data.csv");
-
-    std::string line;
-
-    while(std::getline(data_file, line))
-    {
-        data[line.substr(0, 10)] = atof(line.substr(11).c_str());
-    }
-    search(arv[1], data);
+    try
+	{
+		std::map<std::string, double> data;
+		std::map<std::string, std::string> ff;
+		std::ifstream data_file("data.csv");
+	
+		std::string line;
+	
+		while(std::getline(data_file, line))
+		{
+			data[line.substr(0, 10)] = atof(line.substr(11).c_str());
+		}
+		search(arv[1], data);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
     
 }

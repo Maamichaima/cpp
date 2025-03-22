@@ -1,4 +1,4 @@
-SRC = main.cpp
+SRC = main.cpp PmergeMe.cpp
 OBJ = ${SRC:.cpp=.o}
 # CXXFLAGS = -Wall -Wextra -Werror -std=c++98  
 CXX = c++
