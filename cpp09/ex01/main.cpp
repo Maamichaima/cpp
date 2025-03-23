@@ -10,7 +10,7 @@ int main(int c, char **av)
 		std::stack<std::string> arg;
 		arg = split(av[1], ' ');
 		int result = calcul(arg);
-		std::cout << "result --> " << result<< std::endl;
+		std::cout<< result<< std::endl;
 	}
 	catch(const std::exception& e)
 	{

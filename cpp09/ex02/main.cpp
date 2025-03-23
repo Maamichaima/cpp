@@ -28,11 +28,20 @@ void print_v(std::vector<std::pair<int, int > > x)
 
 void print_int_v(std::vector<int> x)
 {
-	std::cout << std::endl;
 	for (std::vector<int>::iterator it = x.begin(); it != x.end(); ++it)
 	{
-        std::cout << "[" << *it << "] ";
+        std::cout << *it << " ";
     }
+	std::cout << std::endl;
+}
+
+void print_str_v(std::vector<std::string> x)
+{
+	for (std::vector<std::string>::iterator it = x.begin(); it != x.end(); ++it)
+	{
+        std::cout << *it << " ";
+    }
+	std::cout << std::endl;
 }
 
 int is_valid(std::string c)
@@ -63,10 +72,10 @@ std::vector<int> string_to_int_v(std::vector<std::string> str)
 	while(i < str.size())
 	{
 		if(!is_valid(str[i]))
-			throw std::runtime_error("pas un num");
+			throw std::runtime_error("not a integer");
 		n = atof(str[i].c_str());
-		if(n < 0 )
-			throw std::runtime_error("negative");
+		if(n < 0 || n > std::numeric_limits<int>::max())
+			throw std::runtime_error("not a positive integer");
 		num.push_back(n);
 		i++;
 	}
@@ -80,7 +89,7 @@ std::vector<std::pair<int, int> > makePairs_v(std::vector<int> numbers)
 	for(int i = 0; i < numbers.size(); i += 2)
 	{
 		if(i + 1 >= numbers.size())
-			numbers[i + 1] = -1;
+			numbers.push_back(-1);
 		if(numbers[i] > numbers[i + 1])
 			x.push_back(std::make_pair(numbers[i], numbers[i + 1]));
 		else
@@ -91,17 +100,16 @@ std::vector<std::pair<int, int> > makePairs_v(std::vector<int> numbers)
 
 std::vector<int> make_sequence_v(std::vector<std::pair<int, int> > x, std::string str)
 {
-	std::vector<int> largest, lowest;
+	std::vector<int> temp;
 
 	for (std::vector<std::pair<int, int> >::iterator it = x.begin(); it != x.end(); ++it)
 	{
-		largest.push_back(it->first);
-		lowest.push_back(it->second);
+		if(str == "lowest")
+			temp.push_back(it->second);
+		else
+			temp.push_back(it->first);
 	}
-	if(str == "lowest")
-		return lowest;
-	else
-		return largest;
+	return temp;
 }
 
 std::vector<std::pair<int, int> > get_part_v(std::vector<std::pair<int, int> > x, int start, int size)
@@ -157,9 +165,9 @@ void check_edit_v(std::vector<std::pair<int, int> > &x, std::vector<std::pair<in
 	}
 }
 
-void insertionSort(std::vector<std::pair<int, int> > & arr, int n)
+void insertionSort(std::vector<std::pair<int, int> > & arr)
 {
-	for (int i = 1; i < n; ++i) {
+	for (int i = 1; i < arr.size(); ++i) {
 		std::pair<int, int> key = arr[i];
 		int j = i - 1;
 		while (j >= 0 && arr[j].first > key.first) {
@@ -174,36 +182,31 @@ void merg_sort_v(std::vector<std::pair<int, int> > &x)
 {
 	if(x.size() <= 3)
 	{
-		insertionSort(x, x.size());
+		insertionSort(x);
 		return ;
 	}
 	std::vector<std::pair<int, int> > left, right;
 	left = get_part_v(x, 0, 3);
-	insertionSort(left, 3);
+	insertionSort(left);
 	right = get_part_v(x, left.size(), x.size() - left.size());
 	merg_sort_v(right);
-	// std::cout << "----left-----\n";
-	// print_v(left);
-	// std::cout << "----right-----\n";
-	// print_v(right);
 	check_edit_v(x, left, right);
 }
 
 std::vector<int> get_JacobsthalSequence_v(int max)
 {
 	int j = 2;
-	int found = 0;
 	std::vector<int> sq;
 	int nb = 0;
 	
 	sq.push_back(0);
 	sq.push_back(1);
-	while(found == 0)
+	while(true)
 	{
 		nb = sq[j - 1] + 2 * sq[j - 2];
-		if(nb > max)
-			found = 1;
 		sq.push_back(nb);
+		if(nb > max)
+			break;
 		j++;
 	}
 	return sq;
@@ -272,10 +275,10 @@ std::vector<int> sort_v(std::vector<std::pair<int, int> > x)
 
 	std::vector<int> largest = make_sequence_v(x, "largest");
 	std::vector<int> lowest = make_sequence_v(x, "lowest");
-
 	std::vector<int> sq = get_JacobsthalSequence_v(largest.size() - 1);
-	// print_int_v(sq);
 	search_stock_v(largest, lowest, sq);
+	if(!largest.empty() && largest[0] == -1)
+		largest.erase(largest.begin());
 	return largest;
 }
 
@@ -305,6 +308,7 @@ void PmergeMe::sort(std::vector<int> vc)
 	std::vector<std::pair<int, int> > pairs;
 
 	pairs = makePairs_v(vc);
+	// print_v(pairs);
 	this->vc = sort_v(pairs);
 }
 
@@ -319,21 +323,28 @@ void PmergeMe::sort(std::deque<int> dq)
 
 int main(int ac, char **av)
 {
+	if(ac == 1)
+	{
+		std::cerr << "no args\n";
+		return 1;
+	}
 	try
 	{
 		PmergeMe nb(av);
-		std::cout <<"-----------vector-------------\n";
+		std::cout << "Before: ";
+		print_str_v(nb.v_str);
         clock_t start_vector = clock();
 		nb.setVector();
         nb.sort(nb.vc);
-        clock_t end_vector = clock();
-        double duration_vector = static_cast<double>(end_vector - start_vector) / CLOCKS_PER_SEC;
-		std::cout << "Time to process a range of " << nb.vc.size() << " elements with std::[..] " <<  duration_vector << " us\n";
-		print_int_v(nb.vc);
-		std::cout <<"\n-----------deque-------------\n";
+        double duration_vector = static_cast<double>(clock() - start_vector) / CLOCKS_PER_SEC;
+		clock_t start_deque = clock();
 		nb.setDeque();
 		nb.sort(nb.dq);
-		print_int_d(nb.dq);
+        double duration_deque = static_cast<double>(clock() - start_deque) / CLOCKS_PER_SEC;
+		std::cout << "After: ";
+		print_int_v(nb.vc);
+		std::cout << "Time to process a range of " << nb.vc.size() << " elements with std::vector " <<  duration_vector << " us\n";
+		std::cout << "Time to process a range of " << nb.vc.size() << " elements with std::deque " <<  duration_deque << " us\n";
 	}
 	catch(const std::exception& e)
 	{

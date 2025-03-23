@@ -41,7 +41,7 @@ int is_operator(std::string str)
 
 int is_valid(std::string str)
 {
-	if(!isnumber(str[0]) && !is_operator(str))
+	if(!isdigit(str[0]) && !is_operator(str))
 		return 0;
 	return 1;
 }
@@ -51,6 +51,8 @@ int is_digit(std::string str)
 	int i = 0;
 	if(str[0] == '-' || str[i] == '+')
 		i++;
+	if(!str[i])
+		return 0;
 	while (str[i])
 	{
 		if(!isdigit(str[i]))
@@ -65,9 +67,7 @@ int is_num(std::string str)
 	if(is_digit(str))
 	{
 		double nb = atof(str.c_str());
-		if(nb == 0 && str[0] != '0')
-			return 0;
-		else if(nb > 10)
+		if(nb > 10)
 			return 0;
 		return 1;
 	}

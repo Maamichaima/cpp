@@ -2,7 +2,9 @@
 #include <map>
 #include <fstream>
 #include <sstream>
-// case one , date |value
+#include <cstdlib>
+#include <iostream>
+#include <string>
 // case two , february 29 2021
 
 void trim(std::string& str, const std::string tr)
@@ -25,7 +27,6 @@ std::map<int, std::string> split(const std::string& str, char delimiter){
             continue;
         result[result.size()] = item;
     }
-
     return result;
 }
 
@@ -68,11 +69,13 @@ int count_char(std::string str, char c)
 
 int is_number(std::string str)
 {
-    if(str[0] == '+' || str[0] == '-')// checck overflow
+    if(str[0] == '+' || str[0] == '-')
 		str.erase(0, 1);
+    if (!str[0])
+        throw std::runtime_error("Error: not a number");
     for(int i = 0; str[i]; i++)
     {
-        if(!isalnum(str[i]) && str[i] != '.')
+        if(!isdigit(str[i]) && str[i] != '.')
             throw std::runtime_error("Error: not a number");
     }
     if(count_char(str, '.') > 1 || str == ".")
@@ -96,8 +99,7 @@ int check_key(std::string str)
     std::string word;
     std::map<int, std::string> date;
     long int m, j, y;
-    int count = 0;
-    struct tm tm = {0};
+    struct tm tm = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     if(strptime(str.c_str(), "%Y-%m-%d", &tm))
     {
@@ -111,6 +113,7 @@ int check_key(std::string str)
         return 0;
     if((m == 2 && j > 29) || (m == 4 && j > 30) || (m == 6 && j > 30) || (m == 9 && j > 30) || (m == 11 && j > 30))
         return 0;
+    //sama ta3issa
     return 1;
 }
 
@@ -143,10 +146,11 @@ void parce_line(std::string str)
 void search(std::string file_name, std::map<std::string, double> data)
 {
     std::string line;
-    std::ifstream file(file_name);
+    std::ifstream file(file_name.c_str());
+    if(!file.is_open())
+        throw std::runtime_error("can't open " + file_name);
     std::map<int, std::string> t;
     std::map<std::string, double>::iterator it;
-    // check lbdya
     std::getline(file, line);
     if(line != "date | value")
         throw std::runtime_error("Error: invalid file format");
@@ -154,11 +158,15 @@ void search(std::string file_name, std::map<std::string, double> data)
     {
         try
         {
+            if (line.empty())
+                continue ;
             parce_line(line);
 			t = split(line, '|');
 			trim(t[0], " \t");
-			it = data.upper_bound(t[0]);
-			// it--; // kifach katkhdem o trow exp ila mal9ach li sgher mnooo 
+			it = data.upper_bound(t[0]); //awal 3adad akbar 9at3an 
+            if (it == data.begin())
+                throw std::runtime_error("there is no lower date");
+            it--; // kifach katkhdem o trow exp ila mal9ach li sgher mnooo 
 			if(it != data.end())
 				std::cout << t[0] << " => " << t[1] << " = " << it->second * atof(t[1].c_str()) << std::endl;// * atoi(t[1].c_str())
         }
@@ -178,12 +186,13 @@ int main(int arc, char **arv)
 		std::map<std::string, double> data;
 		std::map<std::string, std::string> ff;
 		std::ifstream data_file("data.csv");
-	
+        if(!data_file.is_open())
+            throw std::runtime_error("can't open data.csv");
 		std::string line;
-	
 		while(std::getline(data_file, line))
 		{
-			data[line.substr(0, 10)] = atof(line.substr(11).c_str());
+			if (line.length() > 11)
+                data[line.substr(0, 10)] = atof(line.substr(11).c_str());
 		}
 		search(arv[1], data);
 	}

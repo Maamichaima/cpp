@@ -2,8 +2,11 @@
 #define PMERGEME_HPP
 
 #include <iostream>
-#include <set>
+#include <vector>
+#include <deque>
 #include <ctime>
+#include <limits>
+#include <iomanip>
 
 class PmergeMe
 {
@@ -29,5 +32,6 @@ std::vector<std::pair<int, int> > makePairs_v(std::vector<int> numbers);
 std::deque<std::pair<int, int> > makePairs_d(std::deque<int> numbers);
 std::deque<int> sort_d(std::deque<std::pair<int, int> > x);
 void print_int_d(std::deque<int> x);
+int is_valid(std::string c);
 
 #endif
