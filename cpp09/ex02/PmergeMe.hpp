@@ -7,17 +7,17 @@
 #include <ctime>
 #include <limits>
 #include <iomanip>
-
+#include <cstdlib>
 class PmergeMe
 {
-	private:
 	public:
 		std::vector<int> vc;
 		std::deque<int> dq;
 		std::vector<std::string> v_str;
 		std::deque<std::string> d_str;
 		PmergeMe();
-		// PmergeMe();
+		PmergeMe(const PmergeMe &other);
+		PmergeMe& operator=(const PmergeMe &other);
 		PmergeMe(char **arg);
 		void setVector();
 		void setDeque();

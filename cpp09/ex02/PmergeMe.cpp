@@ -39,7 +39,7 @@ std::deque<int> string_to_int_d(std::deque<std::string> str)
 {
 	std::deque<int> num;
 	double n;
-	int i = 0;
+	size_t i = 0;
 
 	while(i < str.size())
 	{
@@ -53,12 +53,12 @@ std::deque<int> string_to_int_d(std::deque<std::string> str)
 	}
 	return num;
 }
-// done
+
 std::deque<std::pair<int, int> > makePairs_d(std::deque<int> numbers)
 {
     std::deque<std::pair<int, int> > x;
 
-	for(int i = 0; i < numbers.size(); i += 2)
+	for(size_t i = 0; i < numbers.size(); i += 2)
 	{
 		if(i + 1 >= numbers.size())
 			numbers.push_back(-1);
@@ -84,11 +84,11 @@ std::deque<int> make_sequence_d(std::deque<std::pair<int, int> > x, std::string 
 	return temp;
 }
 
-std::deque<std::pair<int, int> > get_part_d(std::deque<std::pair<int, int> > x, int start, int size)
+std::deque<std::pair<int, int> > get_part_d(std::deque<std::pair<int, int> > x, int start, size_t size)
 {
 	std::deque<std::pair<int, int> > sub;
 	
-	for(int i = start; i < x.size(); i++)
+	for(size_t i = start; i < x.size(); i++)
 	{
 		sub.push_back(x[i]);
 		if (sub.size() == size)
@@ -110,9 +110,9 @@ std::deque<int> get_sub_d(std::deque<int> x, int start, int end)
 
 void check_edit_d(std::deque<std::pair<int, int> > &x, std::deque<std::pair<int, int> > &left, std::deque<std::pair<int, int> > &right)
 {
-	int i = 0;
-	int j = 0;
-	int k = 0;
+	size_t i = 0;
+	size_t j = 0;
+	size_t k = 0;
 	while(i < left.size() && j < right.size())
 	{
 		if(left[i].first < right[j].first)
@@ -139,7 +139,7 @@ void check_edit_d(std::deque<std::pair<int, int> > &x, std::deque<std::pair<int,
 
 void insertionSort(std::deque<std::pair<int, int> > & arr)
 {
-	for (int i = 1; i < arr.size(); ++i) {
+	for (size_t i = 1; i < arr.size(); ++i) {
 		std::pair<int, int> key = arr[i];
 		int j = i - 1;
 		while (j >= 0 && arr[j].first > key.first) {
@@ -218,11 +218,10 @@ int getIndex_d(std::deque<int> largest, int x)
 
 void search_stock_d(std::deque<int> &largest, std::deque<int> lowset, std::deque<int> sq)
 {
-	int i = 0;
 	int index;
 
-	int i_sq = 0;
-	int start, end;
+	size_t i_sq = 0;
+	size_t start, end;
 	end = 0;
 	while(i_sq <= sq.size())
 	{
@@ -249,7 +248,6 @@ std::deque<int> sort_d(std::deque<std::pair<int, int> > x)
 	std::deque<int> lowest = make_sequence_d(x, "lowest");
 
 	std::deque<int> sq = get_JacobsthalSequence_d(largest.size() - 1);
-	// print_int_d(sq);
 	search_stock_d(largest, lowest, sq);
 	if(!largest.empty() && largest[0] == -1)
 		largest.pop_front();
@@ -258,6 +256,23 @@ std::deque<int> sort_d(std::deque<std::pair<int, int> > x)
 
 PmergeMe::PmergeMe()
 {
+}
+
+PmergeMe::PmergeMe(const PmergeMe &other)
+{
+	*this = other;
+}
+
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
+{
+    if(this != &other)
+	{
+		this->d_str = other.d_str;
+		this->v_str = other.v_str;
+		this->dq = other.dq;
+		this->vc = other.vc;
+	}
+	return (*this);
 }
 
 PmergeMe::~PmergeMe()

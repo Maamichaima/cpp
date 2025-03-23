@@ -1,6 +1,5 @@
 #include "RPN.hpp"
 
-
 int main(int c, char **av)
 {
 	try

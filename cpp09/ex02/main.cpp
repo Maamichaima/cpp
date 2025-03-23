@@ -67,7 +67,7 @@ std::vector<int> string_to_int_v(std::vector<std::string> str)
 {
 	std::vector<int> num;
 	double n;
-	int i = 0;
+	size_t i = 0;
 
 	while(i < str.size())
 	{
@@ -81,12 +81,12 @@ std::vector<int> string_to_int_v(std::vector<std::string> str)
 	}
 	return num;
 }
-// done
+
 std::vector<std::pair<int, int> > makePairs_v(std::vector<int> numbers)
 {
     std::vector<std::pair<int, int> > x;
 
-	for(int i = 0; i < numbers.size(); i += 2)
+	for(size_t i = 0; i < numbers.size(); i += 2)
 	{
 		if(i + 1 >= numbers.size())
 			numbers.push_back(-1);
@@ -112,11 +112,11 @@ std::vector<int> make_sequence_v(std::vector<std::pair<int, int> > x, std::strin
 	return temp;
 }
 
-std::vector<std::pair<int, int> > get_part_v(std::vector<std::pair<int, int> > x, int start, int size)
+std::vector<std::pair<int, int> > get_part_v(std::vector<std::pair<int, int> > x, int start, size_t size)
 {
 	std::vector<std::pair<int, int> > sub;
 	
-	for(int i = start; i < x.size(); i++)
+	for(size_t i = start; i < x.size(); i++)
 	{
 		sub.push_back(x[i]);
 		if (sub.size() == size)
@@ -138,9 +138,9 @@ std::vector<int> get_sub_v(std::vector<int> x, int start, int end)
 
 void check_edit_v(std::vector<std::pair<int, int> > &x, std::vector<std::pair<int, int> > &left, std::vector<std::pair<int, int> > &right)
 {
-	int i = 0;
-	int j = 0;
-	int k = 0;
+	size_t i = 0;
+	size_t j = 0;
+	size_t k = 0;
 	while(i < left.size() && j < right.size())
 	{
 		if(left[i].first < right[j].first)
@@ -167,7 +167,7 @@ void check_edit_v(std::vector<std::pair<int, int> > &x, std::vector<std::pair<in
 
 void insertionSort(std::vector<std::pair<int, int> > & arr)
 {
-	for (int i = 1; i < arr.size(); ++i) {
+	for (size_t i = 1; i < arr.size(); ++i) {
 		std::pair<int, int> key = arr[i];
 		int j = i - 1;
 		while (j >= 0 && arr[j].first > key.first) {
@@ -246,12 +246,11 @@ int getIndex_v(std::vector<int> largest, int x)
 
 void search_stock_v(std::vector<int> &largest, std::vector<int> lowset, std::vector<int> sq)
 {
-	int i = 0;
 	int index;
-
-	int i_sq = 0;
-	int start, end;
+	size_t i_sq = 0;
+	size_t start, end;
 	end = 0;
+
 	while(i_sq <= sq.size())
 	{
 		start = sq[i_sq];
@@ -308,7 +307,6 @@ void PmergeMe::sort(std::vector<int> vc)
 	std::vector<std::pair<int, int> > pairs;
 
 	pairs = makePairs_v(vc);
-	// print_v(pairs);
 	this->vc = sort_v(pairs);
 }
 
@@ -331,8 +329,6 @@ int main(int ac, char **av)
 	try
 	{
 		PmergeMe nb(av);
-		std::cout << "Before: ";
-		print_str_v(nb.v_str);
         clock_t start_vector = clock();
 		nb.setVector();
         nb.sort(nb.vc);
@@ -341,6 +337,8 @@ int main(int ac, char **av)
 		nb.setDeque();
 		nb.sort(nb.dq);
         double duration_deque = static_cast<double>(clock() - start_deque) / CLOCKS_PER_SEC;
+		std::cout << "Before: ";
+		print_str_v(nb.v_str);
 		std::cout << "After: ";
 		print_int_v(nb.vc);
 		std::cout << "Time to process a range of " << nb.vc.size() << " elements with std::vector " <<  duration_vector << " us\n";
